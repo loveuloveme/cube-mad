@@ -1,0 +1,1136 @@
+{
+  "meta": {
+    "version": "0.6.7"
+  },
+  "savePath": "C:\\Users\\Oleg\\Desktop\\webgl-phaser3-typescript-2mnbt\\src\\assets\\tilemaps\\tiles",
+  "images": [
+    {
+      "name": "acacia_leaves.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/acacia_leaves.png",
+      "folder": ""
+    },
+    {
+      "name": "acacia_log.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/acacia_log.png",
+      "folder": ""
+    },
+    {
+      "name": "acacia_log_top.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/acacia_log_top.png",
+      "folder": ""
+    },
+    {
+      "name": "acacia_planks.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/acacia_planks.png",
+      "folder": ""
+    },
+    {
+      "name": "andesite.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/andesite.png",
+      "folder": ""
+    },
+    {
+      "name": "basalt_side.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/basalt_side.png",
+      "folder": ""
+    },
+    {
+      "name": "basalt_top.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/basalt_top.png",
+      "folder": ""
+    },
+    {
+      "name": "bedrock.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/bedrock.png",
+      "folder": ""
+    },
+    {
+      "name": "birch_log.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/birch_log.png",
+      "folder": ""
+    },
+    {
+      "name": "birch_log_top.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/birch_log_top.png",
+      "folder": ""
+    },
+    {
+      "name": "birch_planks.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/birch_planks.png",
+      "folder": ""
+    },
+    {
+      "name": "black_concrete.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/black_concrete.png",
+      "folder": ""
+    },
+    {
+      "name": "black_terracotta.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/black_terracotta.png",
+      "folder": ""
+    },
+    {
+      "name": "black_wool.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/black_wool.png",
+      "folder": ""
+    },
+    {
+      "name": "blackstone.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/blackstone.png",
+      "folder": ""
+    },
+    {
+      "name": "blackstone_top.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/blackstone_top.png",
+      "folder": ""
+    },
+    {
+      "name": "blue_concrete.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/blue_concrete.png",
+      "folder": ""
+    },
+    {
+      "name": "blue_ice.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/blue_ice.png",
+      "folder": ""
+    },
+    {
+      "name": "blue_terracotta.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/blue_terracotta.png",
+      "folder": ""
+    },
+    {
+      "name": "blue_wool.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/blue_wool.png",
+      "folder": ""
+    },
+    {
+      "name": "bookshelf.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/bookshelf.png",
+      "folder": ""
+    },
+    {
+      "name": "bricks.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/bricks.png",
+      "folder": ""
+    },
+    {
+      "name": "brown_concrete.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/brown_concrete.png",
+      "folder": ""
+    },
+    {
+      "name": "brown_terracotta.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/brown_terracotta.png",
+      "folder": ""
+    },
+    {
+      "name": "brown_wool.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/brown_wool.png",
+      "folder": ""
+    },
+    {
+      "name": "budding_amethyst.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/budding_amethyst.png",
+      "folder": ""
+    },
+    {
+      "name": "cactus_side.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/cactus_side.png",
+      "folder": ""
+    },
+    {
+      "name": "cactus_top.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/cactus_top.png",
+      "folder": ""
+    },
+    {
+      "name": "calcite.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/calcite.png",
+      "folder": ""
+    },
+    {
+      "name": "carved_pumpkin.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/carved_pumpkin.png",
+      "folder": ""
+    },
+    {
+      "name": "chiseled_nether_bricks.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/chiseled_nether_bricks.png",
+      "folder": ""
+    },
+    {
+      "name": "chiseled_polished_blackstone.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/chiseled_polished_blackstone.png",
+      "folder": ""
+    },
+    {
+      "name": "chiseled_quartz_block.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/chiseled_quartz_block.png",
+      "folder": ""
+    },
+    {
+      "name": "chiseled_red_sandstone.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/chiseled_red_sandstone.png",
+      "folder": ""
+    },
+    {
+      "name": "chiseled_sandstone.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/chiseled_sandstone.png",
+      "folder": ""
+    },
+    {
+      "name": "chiseled_stone_bricks.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/chiseled_stone_bricks.png",
+      "folder": ""
+    },
+    {
+      "name": "clay.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/clay.png",
+      "folder": ""
+    },
+    {
+      "name": "coal_ore.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/coal_ore.png",
+      "folder": ""
+    },
+    {
+      "name": "coarse_dirt.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/coarse_dirt.png",
+      "folder": ""
+    },
+    {
+      "name": "cobbled_deepslate.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/cobbled_deepslate.png",
+      "folder": ""
+    },
+    {
+      "name": "cobblestone.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/cobblestone.png",
+      "folder": ""
+    },
+    {
+      "name": "composter_bottom.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/composter_bottom.png",
+      "folder": ""
+    },
+    {
+      "name": "composter_side.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/composter_side.png",
+      "folder": ""
+    },
+    {
+      "name": "composter_top.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/composter_top.png",
+      "folder": ""
+    },
+    {
+      "name": "copper_ore.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/copper_ore.png",
+      "folder": ""
+    },
+    {
+      "name": "cracked_deepslate_bricks.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/cracked_deepslate_bricks.png",
+      "folder": ""
+    },
+    {
+      "name": "cracked_nether_bricks.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/cracked_nether_bricks.png",
+      "folder": ""
+    },
+    {
+      "name": "cracked_polished_blackstone_bricks.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/cracked_polished_blackstone_bricks.png",
+      "folder": ""
+    },
+    {
+      "name": "cracked_stone_bricks.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/cracked_stone_bricks.png",
+      "folder": ""
+    },
+    {
+      "name": "crafting_table_front.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/crafting_table_front.png",
+      "folder": ""
+    },
+    {
+      "name": "crafting_table_side.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/crafting_table_side.png",
+      "folder": ""
+    },
+    {
+      "name": "crafting_table_top.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/crafting_table_top.png",
+      "folder": ""
+    },
+    {
+      "name": "crimson_nylium.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/crimson_nylium.png",
+      "folder": ""
+    },
+    {
+      "name": "crimson_nylium_side.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/crimson_nylium_side.png",
+      "folder": ""
+    },
+    {
+      "name": "crimson_planks.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/crimson_planks.png",
+      "folder": ""
+    },
+    {
+      "name": "crimson_stem_top.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/crimson_stem_top.png",
+      "folder": ""
+    },
+    {
+      "name": "crying_obsidian.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/crying_obsidian.png",
+      "folder": ""
+    },
+    {
+      "name": "cut_red_sandstone.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/cut_red_sandstone.png",
+      "folder": ""
+    },
+    {
+      "name": "cut_sandstone.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/cut_sandstone.png",
+      "folder": ""
+    },
+    {
+      "name": "cyan_concrete.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/cyan_concrete.png",
+      "folder": ""
+    },
+    {
+      "name": "cyan_terracotta.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/cyan_terracotta.png",
+      "folder": ""
+    },
+    {
+      "name": "cyan_wool.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/cyan_wool.png",
+      "folder": ""
+    },
+    {
+      "name": "dark_oak_leaves.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/dark_oak_leaves.png",
+      "folder": ""
+    },
+    {
+      "name": "dark_oak_log.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/dark_oak_log.png",
+      "folder": ""
+    },
+    {
+      "name": "dark_oak_log_top.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/dark_oak_log_top.png",
+      "folder": ""
+    },
+    {
+      "name": "dark_oak_planks.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/dark_oak_planks.png",
+      "folder": ""
+    },
+    {
+      "name": "dark_prismarine.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/dark_prismarine.png",
+      "folder": ""
+    },
+    {
+      "name": "deepslate.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/deepslate.png",
+      "folder": ""
+    },
+    {
+      "name": "deepslate_bricks.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/deepslate_bricks.png",
+      "folder": ""
+    },
+    {
+      "name": "deepslate_coal_ore.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/deepslate_coal_ore.png",
+      "folder": ""
+    },
+    {
+      "name": "deepslate_copper_ore.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/deepslate_copper_ore.png",
+      "folder": ""
+    },
+    {
+      "name": "deepslate_diamond_ore.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/deepslate_diamond_ore.png",
+      "folder": ""
+    },
+    {
+      "name": "deepslate_emerald_ore.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/deepslate_emerald_ore.png",
+      "folder": ""
+    },
+    {
+      "name": "deepslate_gold_ore.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/deepslate_gold_ore.png",
+      "folder": ""
+    },
+    {
+      "name": "deepslate_iron_ore.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/deepslate_iron_ore.png",
+      "folder": ""
+    },
+    {
+      "name": "deepslate_lapis_ore.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/deepslate_lapis_ore.png",
+      "folder": ""
+    },
+    {
+      "name": "deepslate_redstone_ore.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/deepslate_redstone_ore.png",
+      "folder": ""
+    },
+    {
+      "name": "deepslate_top.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/deepslate_top.png",
+      "folder": ""
+    },
+    {
+      "name": "diamond_ore.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/diamond_ore.png",
+      "folder": ""
+    },
+    {
+      "name": "diorite.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/diorite.png",
+      "folder": ""
+    },
+    {
+      "name": "dirt.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/dirt.png",
+      "folder": ""
+    },
+    {
+      "name": "dirt_path_side.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/dirt_path_side.png",
+      "folder": ""
+    },
+    {
+      "name": "dirt_path_top.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/dirt_path_top.png",
+      "folder": ""
+    },
+    {
+      "name": "dripstone_block.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/dripstone_block.png",
+      "folder": ""
+    },
+    {
+      "name": "emerald_ore.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/emerald_ore.png",
+      "folder": ""
+    },
+    {
+      "name": "end_portal_frame_top.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/end_portal_frame_top.png",
+      "folder": ""
+    },
+    {
+      "name": "end_stone.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/end_stone.png",
+      "folder": ""
+    },
+    {
+      "name": "end_stone_bricks.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/end_stone_bricks.png",
+      "folder": ""
+    },
+    {
+      "name": "farmland.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/farmland.png",
+      "folder": ""
+    },
+    {
+      "name": "farmland_moist.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/farmland_moist.png",
+      "folder": ""
+    },
+    {
+      "name": "furnace_front.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/furnace_front.png",
+      "folder": ""
+    },
+    {
+      "name": "furnace_front_on.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/furnace_front_on.png",
+      "folder": ""
+    },
+    {
+      "name": "furnace_side.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/furnace_side.png",
+      "folder": ""
+    },
+    {
+      "name": "furnace_top.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/furnace_top.png",
+      "folder": ""
+    },
+    {
+      "name": "gilded_blackstone.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/gilded_blackstone.png",
+      "folder": ""
+    },
+    {
+      "name": "glass.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/glass.png",
+      "folder": ""
+    },
+    {
+      "name": "glowstone.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/glowstone.png",
+      "folder": ""
+    },
+    {
+      "name": "gold_ore.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/gold_ore.png",
+      "folder": ""
+    },
+    {
+      "name": "granite.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/granite.png",
+      "folder": ""
+    },
+    {
+      "name": "grass_block_side.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/grass_block_side.png",
+      "folder": ""
+    },
+    {
+      "name": "grass_block_snow.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/grass_block_snow.png",
+      "folder": ""
+    },
+    {
+      "name": "grass_block_top.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/grass_block_top.png",
+      "folder": ""
+    },
+    {
+      "name": "grass_path_top.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/grass_path_top.png",
+      "folder": ""
+    },
+    {
+      "name": "gravel.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/gravel.png",
+      "folder": ""
+    },
+    {
+      "name": "gray_concrete.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/gray_concrete.png",
+      "folder": ""
+    },
+    {
+      "name": "gray_terracotta.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/gray_terracotta.png",
+      "folder": ""
+    },
+    {
+      "name": "gray_wool.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/gray_wool.png",
+      "folder": ""
+    },
+    {
+      "name": "green_concrete.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/green_concrete.png",
+      "folder": ""
+    },
+    {
+      "name": "green_terracotta.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/green_terracotta.png",
+      "folder": ""
+    },
+    {
+      "name": "green_wool.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/green_wool.png",
+      "folder": ""
+    },
+    {
+      "name": "ice.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/ice.png",
+      "folder": ""
+    },
+    {
+      "name": "iron_ore.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/iron_ore.png",
+      "folder": ""
+    },
+    {
+      "name": "jack_o_lantern.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/jack_o_lantern.png",
+      "folder": ""
+    },
+    {
+      "name": "jungle_leaves.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/jungle_leaves.png",
+      "folder": ""
+    },
+    {
+      "name": "jungle_log.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/jungle_log.png",
+      "folder": ""
+    },
+    {
+      "name": "jungle_log_top.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/jungle_log_top.png",
+      "folder": ""
+    },
+    {
+      "name": "jungle_planks.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/jungle_planks.png",
+      "folder": ""
+    },
+    {
+      "name": "lapis_ore.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/lapis_ore.png",
+      "folder": ""
+    },
+    {
+      "name": "light_blue_concrete.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/light_blue_concrete.png",
+      "folder": ""
+    },
+    {
+      "name": "light_blue_terracotta.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/light_blue_terracotta.png",
+      "folder": ""
+    },
+    {
+      "name": "light_blue_wool.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/light_blue_wool.png",
+      "folder": ""
+    },
+    {
+      "name": "light_gray_concrete.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/light_gray_concrete.png",
+      "folder": ""
+    },
+    {
+      "name": "light_gray_terracotta.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/light_gray_terracotta.png",
+      "folder": ""
+    },
+    {
+      "name": "light_gray_wool.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/light_gray_wool.png",
+      "folder": ""
+    },
+    {
+      "name": "lime_concrete.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/lime_concrete.png",
+      "folder": ""
+    },
+    {
+      "name": "lime_terracotta.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/lime_terracotta.png",
+      "folder": ""
+    },
+    {
+      "name": "lime_wool.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/lime_wool.png",
+      "folder": ""
+    },
+    {
+      "name": "magenta_concrete.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/magenta_concrete.png",
+      "folder": ""
+    },
+    {
+      "name": "magenta_terracotta.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/magenta_terracotta.png",
+      "folder": ""
+    },
+    {
+      "name": "magenta_wool.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/magenta_wool.png",
+      "folder": ""
+    },
+    {
+      "name": "melon_side.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/melon_side.png",
+      "folder": ""
+    },
+    {
+      "name": "melon_top.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/melon_top.png",
+      "folder": ""
+    },
+    {
+      "name": "mossy_cobblestone.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/mossy_cobblestone.png",
+      "folder": ""
+    },
+    {
+      "name": "mossy_stone_bricks.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/mossy_stone_bricks.png",
+      "folder": ""
+    },
+    {
+      "name": "mycelium_side.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/mycelium_side.png",
+      "folder": ""
+    },
+    {
+      "name": "mycelium_top.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/mycelium_top.png",
+      "folder": ""
+    },
+    {
+      "name": "nether_bricks.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/nether_bricks.png",
+      "folder": ""
+    },
+    {
+      "name": "nether_gold_ore.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/nether_gold_ore.png",
+      "folder": ""
+    },
+    {
+      "name": "nether_quartz_ore.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/nether_quartz_ore.png",
+      "folder": ""
+    },
+    {
+      "name": "nether_wart_block.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/nether_wart_block.png",
+      "folder": ""
+    },
+    {
+      "name": "netherrack.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/netherrack.png",
+      "folder": ""
+    },
+    {
+      "name": "oak_leaves.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/oak_leaves.png",
+      "folder": ""
+    },
+    {
+      "name": "oak_log.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/oak_log.png",
+      "folder": ""
+    },
+    {
+      "name": "oak_log_top.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/oak_log_top.png",
+      "folder": ""
+    },
+    {
+      "name": "oak_planks.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/oak_planks.png",
+      "folder": ""
+    },
+    {
+      "name": "obsidian.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/obsidian.png",
+      "folder": ""
+    },
+    {
+      "name": "orange_concrete.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/orange_concrete.png",
+      "folder": ""
+    },
+    {
+      "name": "orange_terracotta.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/orange_terracotta.png",
+      "folder": ""
+    },
+    {
+      "name": "orange_wool.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/orange_wool.png",
+      "folder": ""
+    },
+    {
+      "name": "packed_ice.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/packed_ice.png",
+      "folder": ""
+    },
+    {
+      "name": "pink_concrete.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/pink_concrete.png",
+      "folder": ""
+    },
+    {
+      "name": "pink_terracotta.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/pink_terracotta.png",
+      "folder": ""
+    },
+    {
+      "name": "pink_wool.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/pink_wool.png",
+      "folder": ""
+    },
+    {
+      "name": "podzol_side.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/podzol_side.png",
+      "folder": ""
+    },
+    {
+      "name": "podzol_top.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/podzol_top.png",
+      "folder": ""
+    },
+    {
+      "name": "polished_andesite.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/polished_andesite.png",
+      "folder": ""
+    },
+    {
+      "name": "polished_blackstone.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/polished_blackstone.png",
+      "folder": ""
+    },
+    {
+      "name": "polished_blackstone_bricks.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/polished_blackstone_bricks.png",
+      "folder": ""
+    },
+    {
+      "name": "polished_deepslate.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/polished_deepslate.png",
+      "folder": ""
+    },
+    {
+      "name": "polished_diorite.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/polished_diorite.png",
+      "folder": ""
+    },
+    {
+      "name": "polished_granite.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/polished_granite.png",
+      "folder": ""
+    },
+    {
+      "name": "prismarine_bricks.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/prismarine_bricks.png",
+      "folder": ""
+    },
+    {
+      "name": "pumpkin_side.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/pumpkin_side.png",
+      "folder": ""
+    },
+    {
+      "name": "pumpkin_top.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/pumpkin_top.png",
+      "folder": ""
+    },
+    {
+      "name": "purple_concrete.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/purple_concrete.png",
+      "folder": ""
+    },
+    {
+      "name": "purple_terracotta.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/purple_terracotta.png",
+      "folder": ""
+    },
+    {
+      "name": "purple_wool.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/purple_wool.png",
+      "folder": ""
+    },
+    {
+      "name": "purpur_block.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/purpur_block.png",
+      "folder": ""
+    },
+    {
+      "name": "purpur_pillar.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/purpur_pillar.png",
+      "folder": ""
+    },
+    {
+      "name": "purpur_pillar_top.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/purpur_pillar_top.png",
+      "folder": ""
+    },
+    {
+      "name": "quartz_block_bottom.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/quartz_block_bottom.png",
+      "folder": ""
+    },
+    {
+      "name": "quartz_block_side.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/quartz_block_side.png",
+      "folder": ""
+    },
+    {
+      "name": "quartz_block_top.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/quartz_block_top.png",
+      "folder": ""
+    },
+    {
+      "name": "quartz_bricks.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/quartz_bricks.png",
+      "folder": ""
+    },
+    {
+      "name": "red_concrete.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/red_concrete.png",
+      "folder": ""
+    },
+    {
+      "name": "red_nether_bricks.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/red_nether_bricks.png",
+      "folder": ""
+    },
+    {
+      "name": "red_sand.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/red_sand.png",
+      "folder": ""
+    },
+    {
+      "name": "red_sandstone.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/red_sandstone.png",
+      "folder": ""
+    },
+    {
+      "name": "red_sandstone_top.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/red_sandstone_top.png",
+      "folder": ""
+    },
+    {
+      "name": "red_terracotta.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/red_terracotta.png",
+      "folder": ""
+    },
+    {
+      "name": "red_wool.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/red_wool.png",
+      "folder": ""
+    },
+    {
+      "name": "redstone_lamp.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/redstone_lamp.png",
+      "folder": ""
+    },
+    {
+      "name": "redstone_lamp_on.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/redstone_lamp_on.png",
+      "folder": ""
+    },
+    {
+      "name": "redstone_ore.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/redstone_ore.png",
+      "folder": ""
+    },
+    {
+      "name": "reinforced_deepslate_bottom.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/reinforced_deepslate_bottom.png",
+      "folder": ""
+    },
+    {
+      "name": "reinforced_deepslate_side.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/reinforced_deepslate_side.png",
+      "folder": ""
+    },
+    {
+      "name": "reinforced_deepslate_top.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/reinforced_deepslate_top.png",
+      "folder": ""
+    },
+    {
+      "name": "sand.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/sand.png",
+      "folder": ""
+    },
+    {
+      "name": "sandstone.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/sandstone.png",
+      "folder": ""
+    },
+    {
+      "name": "sandstone_bottom.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/sandstone_bottom.png",
+      "folder": ""
+    },
+    {
+      "name": "sandstone_top.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/sandstone_top.png",
+      "folder": ""
+    },
+    {
+      "name": "shroomlight.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/shroomlight.png",
+      "folder": ""
+    },
+    {
+      "name": "smooth_basalt.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/smooth_basalt.png",
+      "folder": ""
+    },
+    {
+      "name": "smooth_stone.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/smooth_stone.png",
+      "folder": ""
+    },
+    {
+      "name": "smooth_stone_slab_side.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/smooth_stone_slab_side.png",
+      "folder": ""
+    },
+    {
+      "name": "snow.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/snow.png",
+      "folder": ""
+    },
+    {
+      "name": "soul_sand.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/soul_sand.png",
+      "folder": ""
+    },
+    {
+      "name": "soul_soil.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/soul_soil.png",
+      "folder": ""
+    },
+    {
+      "name": "spawner.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/spawner.png",
+      "folder": ""
+    },
+    {
+      "name": "spruce_leaves.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/spruce_leaves.png",
+      "folder": ""
+    },
+    {
+      "name": "spruce_log.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/spruce_log.png",
+      "folder": ""
+    },
+    {
+      "name": "spruce_log_top.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/spruce_log_top.png",
+      "folder": ""
+    },
+    {
+      "name": "spruce_planks.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/spruce_planks.png",
+      "folder": ""
+    },
+    {
+      "name": "spruce_trapdoor.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/spruce_trapdoor.png",
+      "folder": ""
+    },
+    {
+      "name": "stone.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/stone.png",
+      "folder": ""
+    },
+    {
+      "name": "stone_bricks.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/stone_bricks.png",
+      "folder": ""
+    },
+    {
+      "name": "sugar_cane.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/sugar_cane.png",
+      "folder": ""
+    },
+    {
+      "name": "tall_grass_bottom.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/tall_grass_bottom.png",
+      "folder": ""
+    },
+    {
+      "name": "terracotta.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/terracotta.png",
+      "folder": ""
+    },
+    {
+      "name": "tuff.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/tuff.png",
+      "folder": ""
+    },
+    {
+      "name": "warped_nylium.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/warped_nylium.png",
+      "folder": ""
+    },
+    {
+      "name": "warped_nylium_side.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/warped_nylium_side.png",
+      "folder": ""
+    },
+    {
+      "name": "warped_planks.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/warped_planks.png",
+      "folder": ""
+    },
+    {
+      "name": "warped_wart_block.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/warped_wart_block.png",
+      "folder": ""
+    },
+    {
+      "name": "white_concrete.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/white_concrete.png",
+      "folder": ""
+    },
+    {
+      "name": "white_terracotta.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/white_terracotta.png",
+      "folder": ""
+    },
+    {
+      "name": "white_wool.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/white_wool.png",
+      "folder": ""
+    },
+    {
+      "name": "yellow_concrete.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/yellow_concrete.png",
+      "folder": ""
+    },
+    {
+      "name": "yellow_terracotta.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/yellow_terracotta.png",
+      "folder": ""
+    },
+    {
+      "name": "yellow_wool.png",
+      "path": "C:/Users/Oleg/Desktop/feran-resource-pack-1.19.4/assets/minecraft/textures/block/yellow_wool.png",
+      "folder": ""
+    }
+  ],
+  "folders": [],
+  "packOptions": {
+    "textureName": "blocks",
+    "textureFormat": "png",
+    "removeFileExtension": false,
+    "prependFolderName": false,
+    "base64Export": false,
+    "tinify": false,
+    "tinifyKey": "",
+    "scale": 1,
+    "filter": "none",
+    "exporter": "JSON (hash)",
+    "fileName": "pack-result",
+    "savePath": "C:\\Users\\Oleg\\Desktop\\webgl-phaser3-typescript-2mnbt\\src\\assets\\tilemaps\\tiles",
+    "width": 2048,
+    "height": 2048,
+    "fixedSize": false,
+    "powerOfTwo": true,
+    "padding": 0,
+    "extrude": 0,
+    "allowRotation": true,
+    "allowTrim": true,
+    "trimMode": "trim",
+    "alphaThreshold": "0",
+    "detectIdentical": true,
+    "packer": "MaxRectsPacker",
+    "packerMethod": "SmartArea"
+  }
+}

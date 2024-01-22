@@ -7,7 +7,9 @@ import AlignGrid from '@/classes/utils/alignGrid';
 import getColorFromValue from '@/helpers/get-color-from-value';
 import Sun from '@/classes/Sun';
 import Light from '@/classes/Light';
-import Item, { ItemGameObject } from '@/classes/Item';
+import Item, { ItemGameObject, ToolGameObject } from '@/classes/Item';
+import Marker from '@/classes/Marker';
+import Destroy from '@/classes/Destroy';
 
 export class GameScene extends Scene {
     public worldMap!: WorldMap;
@@ -29,6 +31,7 @@ export class GameScene extends Scene {
 
         this.background = new Sky(this);
         this.worldMap = new WorldMap(this);
+        this.marker = new Marker(this);
 
         this.player = new Player(this);
         this.physics.add.collider(this.player, this.worldMap.layers.ground);
@@ -101,7 +104,7 @@ export class GameScene extends Scene {
         graphicsOverlay.fillRect(0, 0, this.scale.width, this.scale.height);
         graphicsOverlay.setDepth(30000).setVisible(false);
 
-        const drop = new ItemGameObject(this, new Item(0));
+        const drop = new ToolGameObject(this, new Item(0));
         this.physics.add.existing(drop);
         drop.setPosition(this.worldMap.tilemap.widthInPixels / 2, 200);
         this.physics.add.collider(drop, this.worldMap.layers.ground);
@@ -112,6 +115,7 @@ export class GameScene extends Scene {
         this.background.update(time, delta);
         this.sun.update();
         this.worldMap.update();
+        this.marker.update();
 
         // const worldPoint = this.input.activePointer.positionToCamera(this.cameras.main);
 

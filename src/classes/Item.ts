@@ -3,18 +3,36 @@
 import { Scene } from 'phaser';
 
 export default class Item {
-    private _id: number;
+    constructor(
+        public id: number,
+        public name: string,
+        public texture: string | number = '',
+        public stackable = true,
+    ) {
+        if (!texture) {
+            this.texture = id;
+        }
+    }
 
-    public get id(): number {
-        return this._id;
+    public getItem() {
+        return this;
     }
-    public set id(value: number) {
-        this._id = value;
-    }
+}
 
-    constructor(id: number) {
-        this._id = id;
+export class Stack {
+    constructor(public item: Item) {}
+
+    public increase() {}
+    public decrease() {}
+    public getItem() {
+        return this.item;
     }
+}
+
+export class Block extends Item {}
+
+export class Tool extends Item {
+    private health = 1;
 }
 
 export class ItemGameObject extends Phaser.GameObjects.Sprite {
@@ -23,7 +41,7 @@ export class ItemGameObject extends Phaser.GameObjects.Sprite {
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
 
-        // this.setDisplaySize
+        this.setDisplaySize(26, 26);
     }
 }
 
@@ -32,6 +50,9 @@ export class ToolGameObject extends ItemGameObject {
         super(scene, item);
 
         this.setTexture('items', 'diamond_pickaxe');
-        // this.setDisplaySize(15, 15);
     }
 }
+
+export type ItemType = Item | Stack | null;
+
+// export const createObjectFromType = (item: ItemType) => {};

@@ -10,17 +10,13 @@ const scale = 5;
 export class Inventory extends Phaser.GameObjects.Container {
     private slotContainer!: SlotContainer;
     private stash!: Phaser.GameObjects.Sprite;
-    private inventory!: PlayerInventory;
-
     private marker!: Phaser.GameObjects.Sprite;
 
-    constructor(scene: Scene, inventory: PlayerInventory) {
+    constructor(scene: Scene, private inventory: PlayerInventory) {
         super(scene);
         scene.add.existing(this);
 
         this.slotContainer = (this.scene.scene.get('ui-scene') as UIScene).slotContainer;
-
-        this.inventory = inventory;
 
         this.marker = scene.add.sprite(0, 0, 'stash-marker').setOrigin(0, 0).setScale(scale);
         this.stash = scene.add.sprite(0, 0, 'stash');
@@ -34,12 +30,13 @@ export class Inventory extends Phaser.GameObjects.Container {
                 16 * scale,
                 16 * scale,
                 'inventory',
+                i,
             );
 
             this.slotContainer.extend(slot);
 
             slot.on('click', () => {
-                this.inventory.select = i;
+                this.inventory.setSelect(i);
             });
 
             // slot.container.on('pointerup', () => {
@@ -56,10 +53,11 @@ export class Inventory extends Phaser.GameObjects.Container {
             // });
         });
 
-        this.slotContainer.on('update', (update: { to: Item; from: Item }) => {
+        this.slotContainer.on('update', (update: { to: Slot; from: Slot }) => {
             const items = this.inventory.getItems();
-            const i = items.findIndex((it) => it === update.to);
-            const j = items.findIndex((it) => it === update.from);
+
+            const i = update.to.id as number;
+            const j = update.from.id as number;
 
             items[j] = [items[i], (items[i] = items[j])][0];
         });
@@ -80,10 +78,16 @@ export class Inventory extends Phaser.GameObjects.Container {
         // this.slotContainer.update();
 
         const items = this.inventory.getItems();
-        this.slotContainer.get('inventory').forEach((slot, i) => {
-            (slot as Slot).update(items[i]);
+        this.slotContainer.get('inventory').forEach((slot: Slot, i) => {
+            slot.setItem(items[i]);
+            slot.update();
         });
 
-        this.marker.setPosition(1 * scale + (16 + 4) * scale * this.inventory.select, 1 * scale);
+        // this.slotContainer.update();
+
+        this.marker.setPosition(
+            1 * scale + (16 + 4) * scale * this.inventory.getSelect(),
+            1 * scale,
+        );
     }
 }

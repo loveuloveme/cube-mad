@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 
-import Item, { ItemGameObject, ToolGameObject } from './Item';
+import { items } from '@/consts';
+import Item, { Block, ItemGameObject, ItemType, Tool, ToolGameObject } from './Item';
 
 export class Hero extends Phaser.GameObjects.Container {
     public head!: Phaser.GameObjects.Sprite;
@@ -8,7 +9,8 @@ export class Hero extends Phaser.GameObjects.Container {
     public legs: Phaser.GameObjects.Sprite[] = new Array(2);
     public hands: Phaser.GameObjects.Sprite[] = new Array(2);
 
-    activeItem!: ItemGameObject;
+    activeItem!: Phaser.GameObjects.Sprite;
+    private item: ItemType;
 
     constructor(scene: Phaser.Scene, x: number, y: number) {
         super(scene, x, y);
@@ -19,8 +21,9 @@ export class Hero extends Phaser.GameObjects.Container {
     }
 
     private initModel() {
-        this.activeItem = new ToolGameObject(this.scene, new Item(0));
-        (this.activeItem.body as Phaser.Physics.Arcade.Body).moves = false;
+        this.activeItem = this.scene.add.sprite(0, 0, 'items', 0);
+        //ToolGameObject(this.scene, items[0])
+        // (this.activeItem.body as Phaser.Physics.Arcade.Body).moves = false;
 
         this.tail = new Phaser.GameObjects.Sprite(this.scene, 0, 0, 'hero', 'tail_left');
 
@@ -52,9 +55,6 @@ export class Hero extends Phaser.GameObjects.Container {
             'head_left',
         ).setOrigin(0.5, 1);
 
-        // const c = this.scene.add.container(0, 0);
-        // c.add([this.hands[1], this.activeItem]);
-
         this.add([
             ...this.legs,
             this.head,
@@ -63,8 +63,6 @@ export class Hero extends Phaser.GameObjects.Container {
             this.activeItem,
             this.hands[1],
         ]);
-
-        //this.hands[0].setVisible(false);
     }
 
     public setHead(type: Hero.Head): void {
@@ -77,11 +75,33 @@ export class Hero extends Phaser.GameObjects.Container {
         }
     }
 
+    public setItem(item: ItemType) {
+        this.item = item;
+        // this.activeItem.setTexture
+    }
+
     public update() {
-        const isTool = this.activeItem instanceof ToolGameObject;
-        this.activeItem.setScale(isTool ? 1 : 0.5);
-        const offsetX = this.hands[1].width / 2 + (isTool ? 2 : 0);
-        const offsetY = this.hands[1].height - this.activeItem.height / 2 + 6;
+        const isTool = this.item instanceof Tool;
+        this.activeItem.setVisible(!!this.item);
+
+        if (!this.item) {
+            return;
+        }
+
+        this.activeItem.setTexture(
+            isTool || !(this.item.getItem() instanceof Block) ? 'items' : 'block',
+            this.item.getItem().texture,
+        );
+
+        if (this.item.getItem() instanceof Tool) {
+            this.activeItem.setDisplaySize(16, 16);
+        } else {
+            this.activeItem.setDisplaySize(6, 6);
+        }
+
+        const offsetX = this.hands[1].displayWidth / 2 + (isTool ? 0 : -1);
+        const offsetY =
+            this.hands[1].displayHeight - this.activeItem.displayHeight / 2 + (isTool ? 7 : 3);
 
         this.activeItem.setPosition(this.hands[1].x, this.hands[1].y + this.hands[1].height);
 

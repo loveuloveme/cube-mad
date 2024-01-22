@@ -18,7 +18,7 @@ export class SlotContainer extends Phaser.GameObjects.Container {
                 const to = dropZone.parentContainer as Slot;
 
                 if (from && to && from !== to) {
-                    this.emit('update', { to: to.item, from: from.item });
+                    this.emit('update', { to, from });
                 }
             },
         );

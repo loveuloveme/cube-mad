@@ -1,8 +1,8 @@
 import { Scene } from 'phaser';
-import Item from '@/classes/Item';
+import Item, { Block, ItemType, Stack } from '@/classes/Item';
 
 export class Slot extends Phaser.GameObjects.Container {
-    public item!: Item;
+    public item!: ItemType;
     public container!: Phaser.GameObjects.Container;
     private itemSprite!: Phaser.GameObjects.Sprite;
 
@@ -20,13 +20,14 @@ export class Slot extends Phaser.GameObjects.Container {
         w: number,
         h: number,
         public category: number | string,
+        public id: string | number,
     ) {
         super(scene, x, y);
         scene.add.existing(this);
 
         this.size = { w, h };
 
-        this.item = new Item(0);
+        this.item = null;
         // this.setSize(this.size.w, this.size.h);
 
         const hover = scene.add
@@ -55,8 +56,8 @@ export class Slot extends Phaser.GameObjects.Container {
         scene.input.setDraggable(this.container);
         this.setInteractive();
 
-        this.itemSprite = scene.add.sprite(0, 0, 'block', this.item.id);
-        this.itemSprite.setDisplaySize(this.size.w * 0.65, this.size.h * 0.65);
+        this.itemSprite = scene.add.sprite(0, 0, 'block', '0');
+        // this.itemSprite.setDisplaySize(this.size.w * 0.65, this.size.h * 0.65);
         this.container.add(this.itemSprite);
 
         // const sp = scene.add.sprite(0, 0, 'block', this.item.id).setDisplaySize(50, 50);
@@ -99,6 +100,12 @@ export class Slot extends Phaser.GameObjects.Container {
             // }
         });
 
+        this.container.on('pointerup', () => {
+            if (this.item === null) {
+                this.emit('click');
+            }
+        });
+
         this.container.on(
             'dragover',
             (pointer: Phaser.Input.Pointer, gameObject: Phaser.GameObjects.GameObject) => {
@@ -139,11 +146,21 @@ export class Slot extends Phaser.GameObjects.Container {
         });
     }
 
-    public update(item: Item): void {
+    public setItem(item: ItemType): void {
         this.item = item;
+    }
 
-        this.container.input!.draggable = this.item.id !== 0;
-        this.itemSprite.visible = this.item.id !== 0;
-        this.itemSprite.setTexture('block', this.item.id);
+    public update(): void {
+        this.container.input!.draggable = this.item !== null;
+        this.itemSprite.visible = this.item !== null;
+
+        if (this.item === null) return;
+
+        const isBlock = this.item instanceof Block;
+        const item = this.item instanceof Stack ? this.item.item : this.item;
+        this.itemSprite.setTexture(isBlock ? 'block' : 'items', item.texture);
+
+        const mult = isBlock ? 0.65 : 0.9;
+        this.itemSprite.setDisplaySize(this.size.w * mult, this.size.h * mult);
     }
 }

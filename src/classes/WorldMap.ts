@@ -2,6 +2,7 @@
 import getBlockBackground from '@/helpers/get-block-background';
 import getColorFromValue from '@/helpers/get-color-from-value';
 import { Scene } from 'phaser';
+import Destroy from './Destroy';
 
 export default class WorldMap {
     public tilemap!: Phaser.Tilemaps.Tilemap;
@@ -13,6 +14,7 @@ export default class WorldMap {
 
     private lightMap!: Phaser.Tilemaps.Tilemap;
     public lights!: number[][];
+    public health!: number[][];
 
     constructor(scene: Scene) {
         this.tilemap = scene.make.tilemap({ key: 'map', tileWidth: 32, tileHeight: 32 });
@@ -58,6 +60,18 @@ export default class WorldMap {
         this.layers.light.setDepth(100);
         // this.layers.light.setVisible(false);
 
+        scene.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+            const tile = this.tilemap.getTileAtWorldXY(pointer.worldX, pointer.worldY);
+            console.log(tile);
+
+            if (tile) {
+                new Destroy(scene).setPosition(tile.pixelX, tile.pixelY);
+            }
+        });
+
+        this.health = new Array(this.tilemap.width)
+            .fill(0)
+            .map((_) => new Array(this.tilemap.height).fill(1));
         this.resetLight();
     }
 

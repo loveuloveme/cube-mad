@@ -51,6 +51,11 @@ export class LoadingScene extends Scene {
             frameHeight: 32,
         });
 
+        this.load.spritesheet('destroy', 'spritesheets/destroy.png', {
+            frameWidth: 16,
+            frameHeight: 16,
+        });
+
         this.load.tilemapTiledJSON('map', 'tilemaps/json/map2.json');
     }
 

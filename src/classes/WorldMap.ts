@@ -60,14 +60,14 @@ export default class WorldMap {
         this.layers.light.setDepth(100);
         // this.layers.light.setVisible(false);
 
-        scene.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
-            const tile = this.tilemap.getTileAtWorldXY(pointer.worldX, pointer.worldY);
-            console.log(tile);
+        // scene.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+        //     const tile = this.tilemap.getTileAtWorldXY(pointer.worldX, pointer.worldY);
+        //     console.log(tile);
 
-            if (tile) {
-                new Destroy(scene).setPosition(tile.pixelX, tile.pixelY);
-            }
-        });
+        //     if (tile) {
+        //         new Destroy(scene).setPosition(tile.pixelX, tile.pixelY);
+        //     }
+        // });
 
         this.health = new Array(this.tilemap.width)
             .fill(0)

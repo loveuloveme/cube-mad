@@ -6,6 +6,7 @@ import Inventory from './Inventory';
 import Light from './Light';
 import { GameScene } from '@/scenes';
 import Destroy from './Destroy';
+import Range from './Range';
 
 export class Player extends Phaser.GameObjects.Container {
     private hero: Hero;
@@ -33,6 +34,13 @@ export class Player extends Phaser.GameObjects.Container {
 
     private dUnit: Destroy | null = null;
 
+    private isInteraction = false;
+
+    lastJumpedAt = 0;
+
+    private range: Range;
+    private rangeValue = 75;
+
     constructor(scene: GameScene) {
         super(scene, 700, 0);
         this.setSize(this.config.collider.w, this.config.collider.h);
@@ -54,6 +62,11 @@ export class Player extends Phaser.GameObjects.Container {
 
         //this.lightning = new Light(this, (scene as GameScene).worldMap);
 
+        // graphics.fillStyle(color, alpha);   // color: 0xRRGGBB
+
+        this.range = new Range(this.scene);
+        this.setDepth(3001);
+
         this.raycaster = (scene as GameScene).raycasterPlugin.createRaycaster({
             debug: true,
         });
@@ -63,58 +76,73 @@ export class Player extends Phaser.GameObjects.Container {
         });
 
         this.ray = this.raycaster.createRay();
-        this.ray.autoSlice = true;
         //enable arcade physics body
-        this.ray.enablePhysics();
-        //this.ray.setCollisionRange(200);
-        this.ray.setDetectionRange(400);
+        this.ray.setDetectionRange(this.rangeValue);
 
         this.inventory.on('update', () => {
             this.hero.setItem(this.inventory.getActive());
         });
 
+        scene.input.on('pointerdown', () => {
+            this.isInteraction = true;
+        });
+
+        scene.input.on('pointerup', () => {
+            this.isInteraction = false;
+            this.dUnit?.destroy();
+        });
+
         scene.input.on('pointermove', (pointer: Phaser.Input.Pointer) => {
-            const angle = Phaser.Math.Angle.Between(this.x, this.y, pointer.worldX, pointer.worldY);
-            this.ray.setAngle(angle);
+            if (this.isInteraction) {
+                const angle = Phaser.Math.Angle.Between(
+                    this.x,
+                    this.y,
+                    pointer.worldX,
+                    pointer.worldY,
+                );
+                this.ray.setAngle(angle);
+            }
         });
     }
 
-    lastJumpedAt = 0;
-    range = 200;
-
     update(time: number, delta: number): void {
-        this.ray.setOrigin(this.x, this.y);
-        const point = this.ray.cast() as Point;
+        this.range.setPosition(this.x, this.y);
+        this.range.setAngle(this.ray.angle);
+        this.range.setVisible(this.isInteraction);
 
-        // Phaser.Math.Distance.Between(this.x, this.y, point.x, point.y)
-        let offsetY = 0;
-        let offsetX = 0;
+        if (this.isInteraction) {
+            this.ray.setOrigin(this.x, this.y);
+            const point = this.ray.cast() as Point;
 
-        if (this.ray.angle > Math.PI && this.ray.angle < Math.PI * 2) {
-            offsetY -= 2;
-        }
+            // Phaser.Math.Distance.Between(this.x, this.y, point.x, point.y)
+            let offsetY = 0;
+            let offsetX = 0;
 
-        if (this.ray.angle > Math.PI / 2 && this.ray.angle < Math.PI * 1.5) {
-            offsetX -= 2;
-        }
-
-        const tile = this.scene.worldMap.layers.ground.getTileAtWorldXY(
-            point.x + offsetX,
-            point.y + offsetY,
-        );
-
-        if (tile !== this.dUnit?.tile) {
-            this.dUnit?.destroy();
-            this.dUnit = null;
-
-            if (tile) {
-                this.dUnit = new Destroy(this.scene, tile);
+            if (this.ray.angle > Math.PI && this.ray.angle < Math.PI * 2) {
+                offsetY -= 2;
             }
-        }
 
-        if (this.dUnit) {
-            this.dUnit.setDepth(10000);
-            this.dUnit.update(time, delta);
+            if (this.ray.angle > Math.PI / 2 && this.ray.angle < Math.PI * 1.5) {
+                offsetX -= 2;
+            }
+            const x = point.x + offsetX;
+            const y = point.y + offsetY;
+
+            const tile = this.scene.worldMap.layers.ground.getTileAtWorldXY(x, y);
+
+            if (tile !== this.dUnit?.tile) {
+                this.dUnit?.destroy();
+                this.dUnit = null;
+
+                if (tile && Phaser.Math.Distance.Between(this.x, this.y, x, y) < this.rangeValue) {
+                    this.dUnit = new Destroy(this.scene, tile);
+                }
+            }
+
+            if (this.dUnit) {
+                this.dUnit.setDepth(10000);
+                this.dUnit.update(time, delta);
+            }
         }
 
         this.hero.update();
@@ -167,5 +195,8 @@ export class Player extends Phaser.GameObjects.Container {
         this.hero.setItem(this.inventory.getActive()?.getItem());
 
         // this.smoothMoveCameraTowards(matterSprite, 0.9);
+
+        if (this.isInteraction) {
+        }
     }
 }

@@ -81,20 +81,20 @@ export class GameScene extends Scene {
         // const aGrid = new AlignGrid({ scene: this, rows: 12, cols: 12 });
         // aGrid.showNumbers();
 
-        this.input.on('pointerup', (pointer: Phaser.Input.Pointer) => {
-            const pointerTileX = this.worldMap.tilemap.worldToTileX(pointer.worldX);
-            const pointerTileY = this.worldMap.tilemap.worldToTileY(pointer.worldY);
+        // this.input.on('pointerup', (pointer: Phaser.Input.Pointer) => {
+        //     const pointerTileX = this.worldMap.tilemap.worldToTileX(pointer.worldX);
+        //     const pointerTileY = this.worldMap.tilemap.worldToTileY(pointer.worldY);
 
-            const tile = this.worldMap.tilemap.getTileAt(
-                pointerTileX!,
-                pointerTileY!,
-                true,
-                'main',
-            );
+        //     const tile = this.worldMap.tilemap.getTileAt(
+        //         pointerTileX!,
+        //         pointerTileY!,
+        //         true,
+        //         'main',
+        //     );
 
-            this.worldMap.layers.ground.putTileAt(-1, pointerTileX!, pointerTileY!);
-            // this.worldMap.layers.ground.removeTileAt(pointerTileX!, pointerTileY!);
-        });
+        //     //this.worldMap.layers.ground.putTileAt(-1, pointerTileX!, pointerTileY!);
+        //     // this.worldMap.layers.ground.removeTileAt(pointerTileX!, pointerTileY!);
+        // });
 
         this.sun = new Sun(this, this.worldMap, this.worldMap.tilemap.widthInPixels / 2, 50);
 

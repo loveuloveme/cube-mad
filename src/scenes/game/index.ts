@@ -16,7 +16,7 @@ export class GameScene extends Scene {
     public player!: Player;
     private background!: Sky;
     private sun!: Sun;
-
+    public marker!: Marker;
     raycasterPlugin!: PhaserRaycaster;
 
     constructor() {

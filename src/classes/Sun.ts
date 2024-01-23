@@ -12,7 +12,7 @@ export default class Sun extends Phaser.GameObjects.Zone {
         this.worldMap = worldMap;
 
         this.raycaster = (scene as GameScene).raycasterPlugin.createRaycaster({
-            debug: true,
+            // debug: true,
         });
 
         this.raycaster.mapGameObjects(this.worldMap.layers.ground, true, {

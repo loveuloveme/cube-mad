@@ -1,3 +1,4 @@
+import { GameScene } from '@/scenes';
 import { Scene } from 'phaser';
 
 export default class Destroy extends Phaser.GameObjects.Sprite {
@@ -18,10 +19,17 @@ export default class Destroy extends Phaser.GameObjects.Sprite {
         this.health -= (0.5 * delta) / 1000;
         this.setTexture('destroy', Math.floor((1 - this.health) * 8));
 
+        (this.scene as GameScene).marker.setPosition(this.tile.pixelX, this.tile.pixelY);
+
         if (this.health < 0) {
             this.health = 1;
 
             this.tile.tilemapLayer?.putTileAt(-1, this.tile.x, this.tile.y);
         }
     }
+
+    // destroy(fromScene?: boolean | undefined): void {
+    //     (this.scene as GameScene).marker.hide();
+    //     super.destroy(fromScene);
+    // }
 }

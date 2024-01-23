@@ -2,11 +2,12 @@
 
 import { Scene } from 'phaser';
 
-export default class Item {
+class Item {
     constructor(
         public id: number,
         public name: string,
         public texture: string | number = '',
+        public mode: Item.Mode = Item.Mode.DESTROY,
         public stackable = true,
     ) {
         if (!texture) {
@@ -56,3 +57,13 @@ export class ToolGameObject extends ItemGameObject {
 export type ItemType = Item | Stack | null;
 
 // export const createObjectFromType = (item: ItemType) => {};
+
+namespace Item {
+    export enum Mode {
+        DESTROY,
+        CREATE,
+        IGNORE,
+    }
+}
+
+export default Item;

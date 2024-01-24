@@ -28,6 +28,10 @@ export default class Marker extends Phaser.GameObjects.Graphics {
         this.setPosition(-10000, -10000);
     }
 
+    public isHidden(): boolean {
+        return this.x === -10000 && this.y === -10000;
+    }
+
     update(...args: any[]): void {
         // const worldPoint = this.scene.input.activePointer.positionToCamera(this.scene.cameras.main);
         // const pointerTileX = this.map.worldToTileX(worldPoint.x);

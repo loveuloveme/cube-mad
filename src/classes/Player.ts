@@ -33,14 +33,14 @@ export class Player extends Phaser.GameObjects.Container {
     scene!: GameScene;
     public inventory: Inventory = new Inventory(20, 5);
 
-    private dUnit: Destroy | null = null;
+    public dUnit: Destroy | null = null;
 
     private isInteraction = false;
 
     lastJumpedAt = 0;
 
     private range: Range;
-    private rangeValue = 75;
+    private rangeValue = 200;
 
     constructor(scene: GameScene) {
         super(scene, 700, 0);
@@ -85,7 +85,6 @@ export class Player extends Phaser.GameObjects.Container {
 
         scene.input.on('pointerup', () => {
             this.isInteraction = false;
-            this.dUnit?.destroy();
         });
 
         // scene.input.on('pointermove', (pointer: Phaser.Input.Pointer) => {});
@@ -96,95 +95,67 @@ export class Player extends Phaser.GameObjects.Container {
             this.scene.cameras.main,
         ) as Phaser.Math.Vector2;
 
-        switch (this.inventory.getActive()?.getItem().mode) {
-            case Item.Mode.CREATE:
-                const scene = this.scene as GameScene;
-                const marker = scene.marker;
-
-                const pointerTileX = scene.worldMap.tilemap.worldToTileX(x)!;
-                const pointerTileY = scene.worldMap.tilemap.worldToTileY(y)!;
-
-                const nearest = [
-                    [-1, -1],
-                    [0, 1],
-                    [1, 1],
-                    [0, -1],
-                    [0, 0],
-                ];
-
-                const isNear = nearest.some((near) =>
-                    scene.worldMap.tilemap.getTileAt(
-                        pointerTileX + near[0],
-                        pointerTileY + near[1],
-                    ),
-                );
-
-                if (isNear) {
-                    marker.setPosition(
-                        scene.worldMap.tilemap.tileToWorldX(pointerTileX)!,
-                        scene.worldMap.tilemap.tileToWorldY(pointerTileY)!,
-                    );
-                } else {
-                    marker.hide();
-                }
-                break;
-            case Item.Mode.DESTROY:
-                const angle = Phaser.Math.Angle.Between(this.x, this.y, x, y);
-                this.ray.setAngle(angle);
-                break;
-        }
-    }
-
-    private setDestroy(time: number, delta: number) {
         const scene = this.scene as GameScene;
         const marker = scene.marker;
 
-        if (this.dUnit) {
-            marker.setPosition(this.dUnit.x, this.dUnit.y);
+        const pointerTileX = scene.worldMap.tilemap.worldToTileX(x)!;
+        const pointerTileY = scene.worldMap.tilemap.worldToTileY(y)!;
+
+        const nearest = [
+            [-1, -1],
+            [0, 1],
+            [1, 1],
+            [0, -1],
+            [0, 0],
+            [-1, 1],
+            [1, -1],
+            [-1, 0],
+            [1, 0],
+        ];
+
+        const isSelf = !!scene.worldMap.tilemap.getTileAt(
+            pointerTileX,
+            pointerTileY,
+            false,
+            'main',
+        );
+        const isNear = nearest.some((near) =>
+            scene.worldMap.tilemap.getTileAt(
+                pointerTileX + near[0],
+                pointerTileY + near[1],
+                false,
+                'main',
+            ),
+        );
+
+        const isSet = (() => {
+            switch (this.inventory.getActive()?.getItem().mode) {
+                case Item.Mode.CREATE:
+                    if (!isNear) return;
+                    break;
+                case Item.Mode.SELECT:
+                    if (!isSelf) return;
+                    break;
+                case Item.Mode.SPACE:
+                    if (isSelf || !isNear) return;
+                    break;
+                case Item.Mode.IGNORE:
+                    return;
+            }
+
+            return true;
+        })();
+
+        const inRange = Phaser.Math.Distance.Between(this.x, this.y, x, y) <= this.rangeValue;
+
+        if (!!isSet && inRange) {
+            marker.setPosition(
+                scene.worldMap.tilemap.tileToWorldX(pointerTileX)!,
+                scene.worldMap.tilemap.tileToWorldY(pointerTileY)!,
+            );
         } else {
             marker.hide();
         }
-
-        if (!this.isInteraction) return;
-
-        let pointerSize = this.rangeValue;
-
-        this.ray.setOrigin(this.x, this.y);
-        const point = this.ray.cast() as Point;
-
-        let offsetY = 0;
-        let offsetX = 0;
-
-        if (this.ray.angle > Math.PI && this.ray.angle < Math.PI * 2) {
-            offsetY -= 2;
-        }
-
-        if (this.ray.angle > Math.PI / 2 && this.ray.angle < Math.PI * 1.5) {
-            offsetX -= 2;
-        }
-
-        const x = point.x + offsetX;
-        const y = point.y + offsetY;
-
-        const tile = this.scene.worldMap.layers.ground.getTileAtWorldXY(x, y);
-
-        if (tile !== this.dUnit?.tile) {
-            this.dUnit?.destroy();
-            this.dUnit = null;
-
-            if (tile && Phaser.Math.Distance.Between(this.x, this.y, x, y) < this.rangeValue) {
-                this.dUnit = new Destroy(this.scene, tile);
-            }
-        }
-
-        if (this.dUnit?.active) {
-            pointerSize = Phaser.Math.Distance.Between(this.x, this.y, x, y);
-
-            this.dUnit.setDepth(10000);
-            this.dUnit.update(time, delta);
-        }
-
-        this.range.setPointer(pointerSize);
     }
 
     private setMovement(time: number, delta: number) {
@@ -233,14 +204,23 @@ export class Player extends Phaser.GameObjects.Container {
         this.animator.setAnimation(animation);
     }
 
+    interactLoop() {
+        // if (this.isInteraction) {
+        // }
+    }
+
     update(time: number, delta: number): void {
         this.range.setAngle(this.ray.angle);
         this.range.setVisible(this.isInteraction);
 
         this.setMarker();
-        this.setDestroy(time, delta);
         this.setMovement(time, delta);
         this.hero.update();
+
+        this.inventory
+            .getActive()
+            ?.getItem()
+            .onInteract(this.scene, time, delta, this.isInteraction);
 
         this.hero.setItem(this.inventory.getActive()?.getItem());
 

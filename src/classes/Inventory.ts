@@ -25,6 +25,9 @@ export default class Inventory extends EventEmitter {
         this.inv[0] = items[0];
         this.inv[1] = blocks[0];
         this.inv[3] = items[2];
+        this.inv[4] = blocks[1];
+        this.inv[5] = blocks[2];
+        this.inv[6] = blocks[3];
     }
 
     public getItems(): ItemType[] {

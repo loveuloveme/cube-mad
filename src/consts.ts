@@ -7,8 +7,8 @@ export const items = [
 ];
 
 export const blocks = [
-    new Block(0, 'Dirt'),
-    new Block(1, 'Grass'),
-    new Block(2, 'Stone'),
-    new Block(3, 'Stone Block'),
+    new Block(1, 'Dirt'),
+    new Block(2, 'Grass'),
+    new Block(3, 'Stone'),
+    new Block(4, 'Stone Block'),
 ];

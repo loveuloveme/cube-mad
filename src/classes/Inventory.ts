@@ -30,6 +30,10 @@ export default class Inventory extends EventEmitter {
         this.inv[6] = blocks[3];
     }
 
+    public getStashItems(): ItemType[] {
+        return this.inv.slice(0, this.stashSize);
+    }
+
     public getItems(): ItemType[] {
         return this.inv;
     }

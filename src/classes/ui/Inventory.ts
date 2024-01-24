@@ -22,7 +22,7 @@ export class Inventory extends Phaser.GameObjects.Container {
         this.stash = scene.add.sprite(0, 0, 'stash');
         this.stash.setOrigin(0, 0).setScale(scale);
 
-        this.inventory.getItems().forEach((it, i) => {
+        this.inventory.getStashItems().forEach((it, i) => {
             const slot = new Slot(
                 scene,
                 3 * scale + (16 + 4) * scale * i,

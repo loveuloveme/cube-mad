@@ -16,7 +16,7 @@ export default class Destroy extends Phaser.GameObjects.Sprite {
     }
 
     update(time: number, delta: number) {
-        this.health -= (0.5 * delta) / 1000;
+        this.health -= (1 * delta) / 1000;
         this.setTexture('destroy', Math.floor((1 - this.health) * 8));
 
         (this.scene as GameScene).marker.setPosition(this.tile.pixelX, this.tile.pixelY);

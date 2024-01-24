@@ -8,6 +8,7 @@ import { GameScene } from '@/scenes';
 import Destroy from './Destroy';
 import Range from './Range';
 import Item from './Item';
+import isInRange from '@/helpers/is-in-range';
 
 export class Player extends Phaser.GameObjects.Container {
     private config = {
@@ -31,7 +32,7 @@ export class Player extends Phaser.GameObjects.Container {
     private raycaster!: Raycaster;
 
     scene!: GameScene;
-    public inventory: Inventory = new Inventory(20, 5);
+    public inventory: Inventory = new Inventory(20, 9);
 
     public dUnit: Destroy | null = null;
 
@@ -40,7 +41,7 @@ export class Player extends Phaser.GameObjects.Container {
     lastJumpedAt = 0;
 
     private range: Range;
-    private rangeValue = 200;
+    private rangeValue = 150;
 
     constructor(scene: GameScene) {
         super(scene, 700, 0);
@@ -51,7 +52,7 @@ export class Player extends Phaser.GameObjects.Container {
 
         scene.add.existing(this);
 
-        this.range = new Range(this.scene);
+        this.range = new Range(this.scene, this.rangeValue);
         this.setDepth(3001);
         this.add(this.range.children.getArray());
 
@@ -148,11 +149,36 @@ export class Player extends Phaser.GameObjects.Container {
 
         const inRange = Phaser.Math.Distance.Between(this.x, this.y, x, y) <= this.rangeValue;
 
+        const markerX = scene.worldMap.tilemap.tileToWorldX(pointerTileX)!;
+        const markerY = scene.worldMap.tilemap.tileToWorldY(pointerTileY)!;
+
+        const isCrossX = [markerX, markerX + 32].some((x) =>
+            isInRange(this.x - this.displayWidth / 2, this.x + this.displayWidth / 2, x),
+        );
+
+        const isCrossY = [markerY, markerY + 32].some((y) =>
+            isInRange(this.y - this.displayHeight / 2, this.y + this.displayHeight / 2, y),
+        );
+
+        // console.log(
+        //     markerX,
+        //     markerX + 32,
+        //     this.x - this.displayWidth / 2,
+        //     this.x + this.displayWidth / 2,
+        // );
+        //console.log(notCrossX);
+
+        // 672 704
+        // 684 716
+        // false
+
+        if (isCrossX && isCrossY) {
+            marker.hide();
+            return;
+        }
+
         if (!!isSet && inRange) {
-            marker.setPosition(
-                scene.worldMap.tilemap.tileToWorldX(pointerTileX)!,
-                scene.worldMap.tilemap.tileToWorldY(pointerTileY)!,
-            );
+            marker.setPosition(markerX, markerY);
         } else {
             marker.hide();
         }
@@ -204,13 +230,7 @@ export class Player extends Phaser.GameObjects.Container {
         this.animator.setAnimation(animation);
     }
 
-    interactLoop() {
-        // if (this.isInteraction) {
-        // }
-    }
-
     update(time: number, delta: number): void {
-        this.range.setAngle(this.ray.angle);
         this.range.setVisible(this.isInteraction);
 
         this.setMarker();

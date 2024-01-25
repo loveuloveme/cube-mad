@@ -1,4 +1,3 @@
-import { Input, Scene } from 'phaser';
 import Hero from '@/classes/Hero';
 import HeroAnimator from '@/classes/HeroAnimator';
 import { SmoothedHorionztalControl } from './SmoothedHorionztalControl';
@@ -193,8 +192,6 @@ export class Player extends Phaser.GameObjects.Container {
         const scene = this.scene as GameScene;
         const marker = scene.marker;
 
-        let animation = Hero.State.IDLE;
-
         if (this.cursors.left.isDown || this.cursors.right.isDown) {
             const multiply = this.cursors.left.isDown ? -1 : 1;
 
@@ -204,9 +201,8 @@ export class Player extends Phaser.GameObjects.Container {
                 this.smoothedControls.moveRight(delta);
             }
 
-            animation = Hero.State.RUN;
-
-            if (!this.isInteraction || marker.isHidden()) {
+            if (!this.isInteraction) {
+                //|| marker.isHidden()
                 this.hero.scaleX = Math.abs(this.hero.scaleX) * multiply;
             }
 
@@ -225,17 +221,15 @@ export class Player extends Phaser.GameObjects.Container {
             this.smoothedControls.reset();
         }
 
-        const canJump = time - this.lastJumpedAt > 250;
+        const canJump = time - this.lastJumpedAt > 750;
 
         if (this.cursors.up.isDown && canJump && body.onFloor()) {
             body.setVelocityY(-this.config.movement.jump);
             this.lastJumpedAt = time;
         }
-
-        this.animator.setAnimation(animation);
     }
 
-    public setInteraction() {
+    public setInteraction(): void {
         const marker = this.scene.marker;
         if (this.isInteraction) {
             let angle = Phaser.Math.Angle.Between(this.x, this.y, marker.x + 16, marker.y + 16);
@@ -245,17 +239,37 @@ export class Player extends Phaser.GameObjects.Container {
             }
 
             if (!marker.isHidden()) {
-                this.hero.setActiveHandAngle(
-                    angle - Math.PI / 2,
-                    this.scene.worldMap.tilemap.getTileAtWorldXY(marker.x, marker.y),
-                );
-                this.hero.scaleX = Math.abs(this.hero.scaleX) * (marker.x + 16 > this.x ? 1 : -1);
+                this.hero.setActiveHandAngle(angle - Math.PI / 2);
+                if (Math.abs(marker.x + 16 - this.x) > 32) {
+                    this.hero.scaleX =
+                        Math.abs(this.hero.scaleX) * (marker.x + 16 > this.x ? 1 : -1);
+                }
             }
         }
 
         if (!this.isInteraction || marker.isHidden()) {
-            this.hero.setActiveHandAngle(0, null);
+            this.hero.setActiveHandAngle(0);
         }
+    }
+
+    public setAnimation(): void {
+        const marker = this.scene.marker;
+
+        const body = this.body as Phaser.Physics.Arcade.Body;
+
+        if (Math.abs(body.velocity.x) > 0) {
+            this.animator.setAnimation('run');
+        } else {
+            this.animator.setAnimation('idle');
+        }
+
+        if (this.isInteraction && !marker.isHidden()) {
+            this.animator.setInteract();
+        }
+    }
+
+    public useAnimation(): void {
+        this.animator.createActivateAnimation();
     }
 
     update(time: number, delta: number): void {
@@ -270,12 +284,9 @@ export class Player extends Phaser.GameObjects.Container {
             ?.getItem()
             .onInteract(this.scene, time, delta, this.isInteraction);
 
-        this.hero.setItem(this.inventory.getActive()?.getItem());
+        this.hero.setItem(this.inventory.getActive()?.getItem() ?? null);
         this.setMovement(time, delta);
         this.setInteraction();
-        // this.smoothMoveCameraTowards(matterSprite, 0.9);
-
-        if (this.isInteraction) {
-        }
+        this.setAnimation();
     }
 }

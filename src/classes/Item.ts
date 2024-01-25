@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-namespace */
 
 import { Scene } from 'phaser';
-import Marker from './Marker';
 import { GameScene } from '@/scenes';
 import Destroy from './Destroy';
 
@@ -73,6 +72,7 @@ export class Block extends Item {
         const y = marker.y;
 
         scene.worldMap.layers.ground.putTileAtWorldXY(this.id, x, y);
+        player.useAnimation();
 
         if (this.stack) {
             this.stack.onUse();

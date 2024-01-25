@@ -8,6 +8,8 @@ export class Slot extends Phaser.GameObjects.Container {
 
     public highlight!: Phaser.GameObjects.Graphics;
 
+    private stackText!: Phaser.GameObjects.Text;
+
     private size = {
         w: 100,
         h: 100,
@@ -83,6 +85,12 @@ export class Slot extends Phaser.GameObjects.Container {
         // const mask = new Phaser.Display.Masks.BitmapMask(scene, pixelMask);
         // mask.invertAlpha = true;
 
+        this.stackText = this.scene.add
+            .text(30, 30, '64', { fontFamily: 'HardPixel' })
+            .setFontSize(24)
+            .setOrigin(1, 1);
+
+        this.container.add(this.stackText);
         this.add([hover, zone, this.container, highlight]);
         this.setPosition(x, y);
 
@@ -154,10 +162,21 @@ export class Slot extends Phaser.GameObjects.Container {
         this.container.input!.draggable = this.item !== null;
         this.itemSprite.visible = this.item !== null;
 
-        if (this.item === null) return;
+        if (this.item === null) {
+            this.stackText.setVisible(false);
+            return;
+        }
 
-        const isBlock = this.item instanceof Block;
-        const item = this.item instanceof Stack ? this.item.item : this.item;
+        const item = this.item.getItem();
+
+        if (this.item instanceof Stack) {
+            this.stackText.setText(this.item.getCount().toString());
+        }
+
+        this.stackText.setVisible(this.item instanceof Stack);
+
+        const isBlock = item instanceof Block;
+
         this.itemSprite.setTexture(isBlock ? 'block' : 'items', item.texture);
 
         const mult = isBlock ? 0.65 : 0.9;

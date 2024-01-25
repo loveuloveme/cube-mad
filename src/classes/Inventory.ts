@@ -23,7 +23,7 @@ export default class Inventory extends EventEmitter {
         });
 
         this.inv[0] = items[0];
-        this.inv[1] = blocks[0];
+        this.inv[1] = new Stack(blocks[0]);
         this.inv[3] = items[2];
         this.inv[4] = blocks[1];
         this.inv[5] = blocks[2];
@@ -54,5 +54,15 @@ export default class Inventory extends EventEmitter {
         }
 
         this.emit('update');
+    }
+
+    public update() {
+        this.inv.forEach((item: ItemType, i) => {
+            if (item instanceof Stack) {
+                if (item.getCount() === 0) {
+                    this.inv[i] = null;
+                }
+            }
+        });
     }
 }

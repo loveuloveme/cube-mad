@@ -1,6 +1,7 @@
-export default function isInRange(x1: number, x2: number, x: number): boolean {
-    //console.log(x1, x2, x, x1 <= x && x <= x2);
-    // 684 716 704 false
-    // 684 <= 704 && 704 <= 716
-    return x1 < x && x < x2;
+export default function isInRange(ax: number, bx: number, cx: number, dx: number): boolean {
+    if (bx < ax || dx < cx) {
+        [ax, bx] = [bx, ax];
+        [cx, dx] = [dx, cx];
+    }
+    return Math.max(ax, cx) <= Math.min(bx, dx);
 }

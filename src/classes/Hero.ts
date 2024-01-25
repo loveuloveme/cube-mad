@@ -2,6 +2,7 @@
 
 import { items } from '@/consts';
 import Item, { Block, ItemGameObject, ItemType, Tool, ToolGameObject } from './Item';
+import animatedValue from '@/helpers/animated-value';
 
 export class Hero extends Phaser.GameObjects.Container {
     public head!: Phaser.GameObjects.Sprite;
@@ -80,41 +81,90 @@ export class Hero extends Phaser.GameObjects.Container {
         // this.activeItem.setTexture
     }
 
-    public update() {
+    private handAngle: number = null;
+    hash: any = null;
+
+    public setActiveHandAngle(angle: number, hash: any) {
+        if (this.handAngle !== angle) {
+            this.scene.tweens.killTweensOf([this.hands[1]]);
+
+            const isReset = hash === null;
+            angle = angle ?? 0;
+            angle = parseFloat(angle.toFixed(1));
+            this.handAngle = angle;
+            this.hash = hash;
+            console.log(this.handAngle);
+
+            this.scene.tweens.add({
+                targets: [this.hands[1]],
+                rotation: this.handAngle,
+                duration: 200,
+                onComplete: () => {
+                    if (!isReset) {
+                        this.scene.tweens.chain({
+                            tweens: [
+                                {
+                                    targets: [this.hands[1]],
+                                    duration: 100,
+                                    rotation: '+=0.4',
+                                },
+                                {
+                                    targets: [this.hands[1]],
+                                    duration: 100,
+                                    rotation: '-=0.4',
+                                },
+                            ],
+                            repeat: -1,
+                        });
+                    }
+                },
+            });
+        }
+    }
+
+    public update(time: number, delta: number) {
         const isTool = this.item instanceof Tool;
         this.activeItem.setVisible(!!this.item);
 
-        if (!this.item) {
-            return;
+        // function lerp(start, end, t) {
+        //     return start * (1 - t) + end * t;
+        // }
+
+        // if (this.handAngle != null) {
+        //     this.hands[1].setRotation(lerp(this.hands[1].rotation, this.handAngle, delta / 1000));
+
+        //     this.handAngle = null;
+        // }
+
+        if (this.item) {
+            this.activeItem.setTexture(
+                isTool || !(this.item.getItem() instanceof Block) ? 'items' : 'block',
+                this.item.getItem().texture,
+            );
+
+            if (this.item.getItem() instanceof Tool) {
+                this.activeItem.setDisplaySize(16, 16);
+            } else {
+                this.activeItem.setDisplaySize(6, 6);
+            }
+
+            const offsetX = this.hands[1].displayWidth / 2 + (isTool ? 0 : -1);
+            const offsetY =
+                this.hands[1].displayHeight - this.activeItem.displayHeight / 2 + (isTool ? 7 : 3);
+
+            this.activeItem.setPosition(this.hands[1].x, this.hands[1].y + this.hands[1].height);
+
+            this.activeItem.x =
+                this.hands[1].x +
+                offsetX * Math.cos(this.hands[1].rotation) -
+                offsetY * Math.sin(this.hands[1].rotation);
+            this.activeItem.y =
+                this.hands[1].y +
+                offsetX * Math.sin(this.hands[1].rotation) +
+                offsetY * Math.cos(this.hands[1].rotation);
+
+            this.activeItem.angle = 40 + this.hands[1].angle;
         }
-
-        this.activeItem.setTexture(
-            isTool || !(this.item.getItem() instanceof Block) ? 'items' : 'block',
-            this.item.getItem().texture,
-        );
-
-        if (this.item.getItem() instanceof Tool) {
-            this.activeItem.setDisplaySize(16, 16);
-        } else {
-            this.activeItem.setDisplaySize(6, 6);
-        }
-
-        const offsetX = this.hands[1].displayWidth / 2 + (isTool ? 0 : -1);
-        const offsetY =
-            this.hands[1].displayHeight - this.activeItem.displayHeight / 2 + (isTool ? 7 : 3);
-
-        this.activeItem.setPosition(this.hands[1].x, this.hands[1].y + this.hands[1].height);
-
-        this.activeItem.x =
-            this.hands[1].x +
-            offsetX * Math.cos(this.hands[1].rotation) -
-            offsetY * Math.sin(this.hands[1].rotation);
-        this.activeItem.y =
-            this.hands[1].y +
-            offsetX * Math.sin(this.hands[1].rotation) +
-            offsetY * Math.cos(this.hands[1].rotation);
-
-        this.activeItem.angle = 40 + this.hands[1].angle;
     }
 }
 

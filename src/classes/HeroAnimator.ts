@@ -33,7 +33,7 @@ export class HeroAnimator {
 
         tweens.push(
             this.hero.scene.tweens.chain({
-                targets: [this.hero.legs[0], this.hero.hands[1]],
+                targets: [this.hero.legs[0]], //targets: [this.hero.legs[0], this.hero.hands[1]],
                 tweens: [{ angle: { value: angle, duration: 0 } }],
                 repeat: -1,
             }),
@@ -56,6 +56,32 @@ export class HeroAnimator {
                 tween.destroy();
             });
         }
+    }
+
+    private interact() {
+        this.hero.setHead(Hero.Head.SIDE);
+
+        const tweens = [] as Phaser.Tweens.TweenChain[];
+
+        const angle = 40;
+
+        tweens.push(
+            this.hero.scene.tweens.chain({
+                targets: [this.hero.hands[1]],
+                tweens: [{ angle: { value: angle, duration: 0 } }],
+                repeat: -1,
+            }),
+        );
+
+        tweens.push(
+            this.hero.scene.tweens.chain({
+                targets: [this.hero.hands[1]],
+                tweens: [{ angle: { value: -angle, duration: 0 } }],
+                repeat: -1,
+            }),
+        );
+
+        return tweens;
     }
 
     private run() {
@@ -98,47 +124,45 @@ export class HeroAnimator {
             }),
         );
 
-        tweens.push(
-            this.hero.scene.tweens.chain({
-                targets: this.hero.hands[1],
-                tweens: [
-                    { angle: { value: -angle, duration } },
-                    { angle: { value: angle, duration } },
-                ],
-                repeat: -1,
-            }),
-        );
+        // tweens.push(
+        //     this.hero.scene.tweens.chain({
+        //         targets: this.hero.hands[1],
+        //         tweens: [
+        //             { angle: { value: -angle, duration } },
+        //             { angle: { value: angle, duration } },
+        //         ],
+        //         repeat: -1,
+        //     }),
+        // );
 
         return tweens;
     }
 
     public setAnimation(state: Hero.State): void {
-        if (this.current?.name === state) return;
-
-        this.clear();
-
-        switch (state) {
-            case Hero.State.RUN:
-                this.current = {
-                    tweens: this.run(),
-                    name: Hero.State.RUN,
-                };
-                break;
-            case Hero.State.IDLE:
-                this.current = {
-                    tweens: this.idle(),
-                    name: Hero.State.IDLE,
-                };
-                break;
-            case Hero.State.JUMP:
-                this.current = {
-                    tweens: this.jump(),
-                    name: Hero.State.JUMP,
-                };
-                break;
-            // case ANIMS.IDLE:
-            //     return this.idle;
-        }
+        // if (this.current?.name === state) return;
+        // this.clear();
+        // switch (state) {
+        //     case Hero.State.RUN:
+        //         this.current = {
+        //             tweens: this.run(),
+        //             name: Hero.State.RUN,
+        //         };
+        //         break;
+        //     case Hero.State.IDLE:
+        //         this.current = {
+        //             tweens: this.idle(),
+        //             name: Hero.State.IDLE,
+        //         };
+        //         break;
+        //     case Hero.State.JUMP:
+        //         this.current = {
+        //             tweens: this.jump(),
+        //             name: Hero.State.JUMP,
+        //         };
+        //         break;
+        //     // case ANIMS.IDLE:
+        //     //     return this.idle;
+        // }
     }
 }
 

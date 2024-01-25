@@ -23,20 +23,44 @@ class Item {
     }
 
     public onInteract(scene: GameScene, time: number, delta: number, isInteracted: boolean) {}
+
+    protected onUse?(): void;
 }
 
 export class Stack {
-    constructor(public item: Item) {}
+    private count = 5;
+    constructor(public item: Block) {
+        item.setStack(this);
+    }
 
-    public increase() {}
-    public decrease() {}
+    public increase() {
+        this.count += 1;
+    }
+
+    public decrease() {
+        this.count -= 1;
+    }
+
     public getItem() {
         return this.item;
+    }
+
+    public getCount() {
+        return this.count;
+    }
+
+    onUse() {
+        this.decrease();
     }
 }
 
 export class Block extends Item {
     public mode: Item.Mode = Item.Mode.SPACE; // EMPTY
+    public stack?: Stack;
+
+    public setStack(stack: Stack) {
+        this.stack = stack;
+    }
 
     public onInteract(scene: GameScene, time: number, delta: number, isInteracted: boolean): void {
         const { marker, player } = scene;
@@ -49,6 +73,10 @@ export class Block extends Item {
         const y = marker.y;
 
         scene.worldMap.layers.ground.putTileAtWorldXY(this.id, x, y);
+
+        if (this.stack) {
+            this.stack.onUse();
+        }
     }
 }
 

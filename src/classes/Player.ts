@@ -17,7 +17,7 @@ export class Player extends Phaser.GameObjects.Container {
             jump: 400,
         },
         collider: {
-            w: 32,
+            w: 25,
             h: 64,
         },
     };
@@ -120,6 +120,7 @@ export class Player extends Phaser.GameObjects.Container {
             false,
             'main',
         );
+
         const isNear = nearest.some((near) =>
             scene.worldMap.tilemap.getTileAt(
                 pointerTileX + near[0],
@@ -128,6 +129,11 @@ export class Player extends Phaser.GameObjects.Container {
                 'main',
             ),
         );
+
+        if (this.inventory.getActive() === null) {
+            marker.hide();
+            return;
+        }
 
         const isSet = (() => {
             switch (this.inventory.getActive()?.getItem().mode) {
@@ -152,25 +158,19 @@ export class Player extends Phaser.GameObjects.Container {
         const markerX = scene.worldMap.tilemap.tileToWorldX(pointerTileX)!;
         const markerY = scene.worldMap.tilemap.tileToWorldY(pointerTileY)!;
 
-        const isCrossX = [markerX, markerX + 32].some((x) =>
-            isInRange(this.x - this.displayWidth / 2, this.x + this.displayWidth / 2, x),
+        const isCrossX = isInRange(
+            markerX,
+            markerX + 32,
+            this.x - this.displayWidth / 2 + 1,
+            this.x + this.displayWidth / 2 - 1,
         );
 
-        const isCrossY = [markerY, markerY + 32].some((y) =>
-            isInRange(this.y - this.displayHeight / 2, this.y + this.displayHeight / 2, y),
+        const isCrossY = isInRange(
+            markerY,
+            markerY + 32,
+            this.y - this.displayHeight / 2 + 1,
+            this.y + this.displayHeight / 2 - 1,
         );
-
-        // console.log(
-        //     markerX,
-        //     markerX + 32,
-        //     this.x - this.displayWidth / 2,
-        //     this.x + this.displayWidth / 2,
-        // );
-        //console.log(notCrossX);
-
-        // 672 704
-        // 684 716
-        // false
 
         if (isCrossX && isCrossY) {
             marker.hide();
@@ -190,6 +190,8 @@ export class Player extends Phaser.GameObjects.Container {
         let newVelocityX;
 
         const body = this.body as Phaser.Physics.Arcade.Body;
+        const scene = this.scene as GameScene;
+        const marker = scene.marker;
 
         let animation = Hero.State.IDLE;
 
@@ -203,7 +205,10 @@ export class Player extends Phaser.GameObjects.Container {
             }
 
             animation = Hero.State.RUN;
-            this.hero.scaleX = Math.abs(this.hero.scaleX) * multiply;
+
+            if (!this.isInteraction || marker.isHidden()) {
+                this.hero.scaleX = Math.abs(this.hero.scaleX) * multiply;
+            }
 
             oldVelocityX = body.velocity.x;
             targetVelocityX = this.config.movement.speed * multiply;
@@ -230,12 +235,35 @@ export class Player extends Phaser.GameObjects.Container {
         this.animator.setAnimation(animation);
     }
 
+    public setInteraction() {
+        const marker = this.scene.marker;
+        if (this.isInteraction) {
+            let angle = Phaser.Math.Angle.Between(this.x, this.y, marker.x + 16, marker.y + 16);
+
+            if (this.hero.scaleX < 0) {
+                angle = Math.abs(Math.abs(angle) - Math.PI) * Math.sign(angle);
+            }
+
+            if (!marker.isHidden()) {
+                this.hero.setActiveHandAngle(
+                    angle - Math.PI / 2,
+                    this.scene.worldMap.tilemap.getTileAtWorldXY(marker.x, marker.y),
+                );
+                this.hero.scaleX = Math.abs(this.hero.scaleX) * (marker.x + 16 > this.x ? 1 : -1);
+            }
+        }
+
+        if (!this.isInteraction || marker.isHidden()) {
+            this.hero.setActiveHandAngle(0, null);
+        }
+    }
+
     update(time: number, delta: number): void {
-        this.range.setVisible(this.isInteraction);
+        this.inventory.update();
+        this.range.setVisible(this.isInteraction && this.inventory.getActive() !== null);
 
         this.setMarker();
-        this.setMovement(time, delta);
-        this.hero.update();
+        this.hero.update(time, delta);
 
         this.inventory
             .getActive()
@@ -243,7 +271,8 @@ export class Player extends Phaser.GameObjects.Container {
             .onInteract(this.scene, time, delta, this.isInteraction);
 
         this.hero.setItem(this.inventory.getActive()?.getItem());
-
+        this.setMovement(time, delta);
+        this.setInteraction();
         // this.smoothMoveCameraTowards(matterSprite, 0.9);
 
         if (this.isInteraction) {

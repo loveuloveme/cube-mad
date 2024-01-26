@@ -1,10 +1,12 @@
 import { GameScene } from '@/scenes';
-import { Scene } from 'phaser';
+import { Block, Stack } from './item';
 
 export default class Destroy extends Phaser.GameObjects.Sprite {
     private health = 1;
 
-    constructor(scene: Scene, public tile: Phaser.Tilemaps.Tile) {
+    scene!: GameScene;
+
+    constructor(scene: GameScene, public tile: Phaser.Tilemaps.Tile) {
         super(scene, 500, 500, 'destroy', 8);
 
         scene.add.existing(this);
@@ -25,6 +27,16 @@ export default class Destroy extends Phaser.GameObjects.Sprite {
             this.health = 1;
 
             this.tile.tilemapLayer?.putTileAt(-1, this.tile.x, this.tile.y);
+
+            const drop = this.scene.dropContainer.createDrop(
+                this.tile.pixelX + this.tile.width / 2,
+                this.tile.pixelY + this.tile.height / 2,
+                new Block(1, 'Dirt'),
+            );
+
+            const body = drop.body as Phaser.Physics.Arcade.Body;
+            Phaser.Math.RandomXY(body.velocity, 50);
+            body.setDrag(100);
         }
     }
 

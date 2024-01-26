@@ -1,4 +1,4 @@
-import Item, { Block, Tool } from './classes/Item';
+import { Block, Item, Tool } from './classes/item';
 
 export const items = [
     new Tool(0, 'Iron Pickaxe', 'iron_pickaxe'),

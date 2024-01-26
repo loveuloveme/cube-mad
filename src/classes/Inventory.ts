@@ -1,12 +1,15 @@
 // export class Block extends Item {}
 // export class Tool extends Item {}
 
-import { blocks, items } from '@/consts';
-import Item, { ItemType, Stack } from './Item';
+import { items } from '@/consts';
+import { Item } from './item/Item';
+import Block from './item/Block';
+import Stack from './item/Stack';
+import Single from './item/Single';
 import EventEmitter from 'events';
 
 export default class Inventory extends EventEmitter {
-    private inv: ItemType[];
+    private inv: Item.Type[] | null[];
     private select = 0;
 
     constructor(size: number, public stashSize: number) {
@@ -22,19 +25,19 @@ export default class Inventory extends EventEmitter {
             },
         });
 
-        this.inv[0] = items[0];
-        this.inv[1] = new Stack(blocks[0]);
-        this.inv[3] = items[2];
-        this.inv[4] = blocks[1];
-        this.inv[5] = blocks[2];
-        this.inv[6] = blocks[3];
+        this.inv[0] = new Single(items[0]);
+        // this.inv[1] = new Stack(blocks[0]);
+        // this.inv[3] = items[2];
+        // this.inv[4] = blocks[1];
+        // this.inv[5] = blocks[2];
+        // this.inv[6] = blocks[3];
     }
 
-    public getStashItems(): ItemType[] {
+    public getStashItems(): typeof this.inv {
         return this.inv.slice(0, this.stashSize);
     }
 
-    public getItems(): ItemType[] {
+    public getItems(): typeof this.inv {
         return this.inv;
     }
 
@@ -42,7 +45,7 @@ export default class Inventory extends EventEmitter {
         return this.select;
     }
 
-    public getActive(): ItemType {
+    public getActive(): (typeof this.inv)[number] {
         return this.inv[this.select];
     }
 
@@ -56,8 +59,61 @@ export default class Inventory extends EventEmitter {
         this.emit('update');
     }
 
-    public update() {
-        this.inv.forEach((item: ItemType, i) => {
+    private putForEmpty(item: Item.Type) {
+        const i = this.getItems().findIndex((item) => item === null);
+        if (i == -1) return false;
+
+        this.inv[i] = item;
+
+        return true;
+    }
+
+    public addItem(item: Item.Type): boolean {
+        if (item instanceof Single) {
+            return this.putForEmpty(item);
+        }
+
+        if (item instanceof Stack) {
+            const req = item.getItem();
+
+            for (const invItem of this.getItems().filter(Boolean)) {
+                if (!(invItem instanceof Stack)) continue;
+
+                const target = invItem.getItem();
+
+                if (target.id === req.id) {
+                    invItem.increase(item.getCount());
+
+                    return true;
+                }
+            }
+
+            return this.putForEmpty(item);
+        }
+
+        if (item instanceof Block) {
+            for (const invItem of this.getItems().filter(Boolean)) {
+                if (!(invItem instanceof Stack)) continue;
+
+                const target = invItem.getItem();
+
+                if (!(target instanceof Block)) continue;
+
+                if (target.id === item.id) {
+                    invItem.increase();
+
+                    return true;
+                }
+            }
+
+            return this.putForEmpty(new Stack(item, 1));
+        }
+
+        return false;
+    }
+
+    public update(): void {
+        this.inv.forEach((item, i) => {
             if (item instanceof Stack) {
                 if (item.getCount() === 0) {
                     this.inv[i] = null;

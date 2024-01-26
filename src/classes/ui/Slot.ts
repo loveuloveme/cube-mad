@@ -1,8 +1,8 @@
 import { Scene } from 'phaser';
-import Item, { Block, ItemType, Stack } from '@/classes/Item';
+import { Block, Item, Stack } from '@/classes/item';
 
 export class Slot extends Phaser.GameObjects.Container {
-    public item!: ItemType;
+    public item!: Item.Type;
     public container!: Phaser.GameObjects.Container;
     private itemSprite!: Phaser.GameObjects.Sprite;
 
@@ -154,7 +154,7 @@ export class Slot extends Phaser.GameObjects.Container {
         });
     }
 
-    public setItem(item: ItemType): void {
+    public setItem(item: Item.Type): void {
         this.item = item;
     }
 

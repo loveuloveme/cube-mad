@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-namespace */
-
-import { items } from '@/consts';
-import Item, { Block, ItemGameObject, ItemType, Tool, ToolGameObject } from './Item';
-import animatedValue from '@/helpers/animated-value';
+import Item from './item/Item';
+import Tool from './item/Tool';
+import Block from './item/Block';
 import { GameScene } from '@/scenes';
 
 class HeroHand extends Phaser.GameObjects.Container {
@@ -43,7 +42,7 @@ class HeroHand extends Phaser.GameObjects.Container {
         });
     }
 
-    public setItem(_item: ItemType) {
+    public setItem(_item: Item.Type) {
         const isTool = _item instanceof Tool;
         this.item.setVisible(!!_item);
 
@@ -73,7 +72,7 @@ export class Hero extends Phaser.GameObjects.Container {
     public legs: Phaser.GameObjects.Sprite[];
     public hands: HeroHand[];
 
-    private item!: ItemType;
+    private item!: Item.Type;
 
     constructor(scene: Phaser.Scene, x: number, y: number) {
         super(scene, x, y);
@@ -121,7 +120,7 @@ export class Hero extends Phaser.GameObjects.Container {
         }
     }
 
-    public setItem(item: ItemType): void {
+    public setItem(item: Item.Type): void {
         this.item = item;
     }
 

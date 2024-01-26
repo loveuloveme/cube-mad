@@ -6,7 +6,7 @@ import Light from './Light';
 import { GameScene } from '@/scenes';
 import Destroy from './Destroy';
 import Range from './Range';
-import Item from './Item';
+import Item from './item/Item';
 import isInRange from '@/helpers/is-in-range';
 
 export class Player extends Phaser.GameObjects.Container {

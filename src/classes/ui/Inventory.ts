@@ -2,7 +2,7 @@ import { Scene } from 'phaser';
 import { SlotContainer } from './SlotContainer';
 import { Slot } from './Slot';
 import PlayerInventory from '../Inventory';
-import Item from '../Item';
+import Item from '../item/Item';
 import { GameScene, UIScene } from '@/scenes';
 
 const scale = 5;

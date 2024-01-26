@@ -1,12 +1,11 @@
 // export class Block extends Item {}
 // export class Tool extends Item {}
-
-import { items } from '@/consts';
 import { Item } from './item/Item';
 import Block from './item/Block';
 import Stack from './item/Stack';
 import Single from './item/Single';
 import EventEmitter from 'events';
+import { blocks, items } from '@/instances';
 
 export default class Inventory extends EventEmitter {
     private inv: Item.Type[] | null[];
@@ -25,7 +24,9 @@ export default class Inventory extends EventEmitter {
             },
         });
 
-        this.inv[0] = new Single(items[0]);
+        this.inv[0] = new Single(items.getById(0));
+        this.inv[1] = new Single(items.getById(1));
+        this.inv[2] = new Stack(blocks.getById(1));
         // this.inv[1] = new Stack(blocks[0]);
         // this.inv[3] = items[2];
         // this.inv[4] = blocks[1];

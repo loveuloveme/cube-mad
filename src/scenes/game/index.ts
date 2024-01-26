@@ -6,7 +6,7 @@ import Sun from '@/classes/Sun';
 import Marker from '@/classes/Marker';
 import DropContainer from '@/classes/DropContainer';
 import { Single, Stack } from '@/classes/item';
-import { blocks, items } from '@/consts';
+import { blocks, items } from '@/instances';
 
 export class GameScene extends Scene {
     public worldMap!: WorldMap;
@@ -74,39 +74,25 @@ export class GameScene extends Scene {
         this.dropContainer.createDrop(
             this.worldMap.tilemap.widthInPixels / 2 - 100,
             200,
-            new Single(items[0]),
+            new Single(items.getById(0)),
         );
         this.dropContainer.createDrop(
             this.worldMap.tilemap.widthInPixels / 2 + 100,
             200,
-            new Stack(blocks[0]),
+            new Stack(blocks.getById(1)),
         );
 
         this.dropContainer.createDrop(
             this.worldMap.tilemap.widthInPixels / 2 + 200,
             200,
-            new Stack(blocks[0]),
+            new Stack(blocks.getById(1)),
         );
-        // const drop = new ToolGameObject(this, new Item(0));
-        // this.physics.add.existing(drop);
-        // drop.setPosition(this.worldMap.tilemap.widthInPixels / 2, 200);
-        // this.physics.add.collider(drop, this.worldMap.layers.ground);
-
-        // this.physics.add.overlap(
-        //     this.player,
-        //     this.dropContainer,
-        //     (_, drop) => {
-        //         console.log(drop);
-        //     },
-        //     undefined,
-        //     this,
-        // );
     }
 
     update(time: number, delta: number): void {
         this.player.update(time, delta);
         this.background.update(time, delta);
-        this.sun.update();
+        // this.sun.update();
         this.worldMap.update();
         this.marker.update();
         this.dropContainer.update();

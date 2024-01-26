@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import getBlockBackground from '@/helpers/get-block-background';
-import getColorFromValue from '@/helpers/get-color-from-value';
 import { Scene } from 'phaser';
-import Destroy from './Destroy';
 
 export default class WorldMap {
     public tilemap!: Phaser.Tilemaps.Tilemap;
@@ -75,7 +73,7 @@ export default class WorldMap {
         this.resetLight();
     }
 
-    private min = 0.2;
+    private min = 1;
     private max = 1;
 
     private resetLight(): void {

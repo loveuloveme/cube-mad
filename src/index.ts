@@ -20,7 +20,7 @@ export const gameConfig: GameConfigExtended = {
         default: 'arcade',
         arcade: {
             gravity: { y: 1300 },
-            debug: true,
+            // debug: true,
         },
     },
     render: {

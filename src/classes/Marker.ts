@@ -13,8 +13,10 @@ export default class Marker extends Phaser.GameObjects.Graphics {
         const { tileWidth, tileHeight } = scene.worldMap.tilemap;
         this.map = scene.worldMap.tilemap;
 
-        this.lineStyle(2, 0xffffff, 1);
-        this.strokeRect(0, 0, tileWidth, tileHeight);
+        this.fillStyle(0xffffff, 0.2);
+        this.fillRect(0, 0, tileWidth, tileHeight);
+        // this.lineStyle(2, 0xffffff, 1);
+        // this.strokeRect(0, 0, tileWidth, tileHeight);
 
         this.setDepth(10000);
         scene.add.existing(this);

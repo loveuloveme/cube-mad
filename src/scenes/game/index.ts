@@ -87,6 +87,19 @@ export class GameScene extends Scene {
             200,
             new Stack(blocks.getById(1)),
         );
+
+        // this.lights.enable();
+        // //set ambient colour whole scene. This is set to quite dark for contrast with lights
+        // this.lights.setAmbientColor(0x000000);
+
+        // //light at entrance to level
+        // this.l = this.lights
+        //     .addLight(this.player.x, this.player.y, 150)
+        //     .setColor(0xffffff)
+        //     .setIntensity(0.5);
+
+        // this.worldMap.layers.ground.setPipeline('Light2D');
+        // this.worldMap.layers.background.setPipeline('Light2D');
     }
 
     update(time: number, delta: number): void {
@@ -96,5 +109,7 @@ export class GameScene extends Scene {
         this.worldMap.update();
         this.marker.update();
         this.dropContainer.update();
+
+        // this.l.setPosition(this.player.x, this.player.y);
     }
 }

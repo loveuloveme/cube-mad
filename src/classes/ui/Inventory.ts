@@ -86,8 +86,8 @@ export class Inventory extends Phaser.GameObjects.Container {
         // this.slotContainer.update();
 
         this.marker.setPosition(
-            1 * scale + (16 + 4) * scale * this.inventory.getSelect(),
-            1 * scale,
+            -1 * scale + (16 + 4) * scale * this.inventory.getSelect(),
+            -1 * scale,
         );
     }
 }

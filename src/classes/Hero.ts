@@ -14,7 +14,7 @@ class HeroHand extends Phaser.GameObjects.Container {
 
         this.wrapper = this.scene.add.container(0, 0);
 
-        this.hand = this.scene.add.sprite(0, 0, 'hero', 'hand_left').setOrigin(0.5, 0);
+        this.hand = this.scene.add.sprite(0, 0, 'hero', 'hand').setOrigin(0.5, 0);
         this.item = this.scene.add.sprite(0, 0, 'items', 0).setVisible(false);
         this.item.setPosition(0, this.hand.displayHeight).setAngle(40);
 
@@ -78,22 +78,22 @@ export class Hero extends Phaser.GameObjects.Container {
         super(scene, x, y);
         scene.add.existing(this);
 
-        this.tail = new Phaser.GameObjects.Sprite(this.scene, 0, 0, 'hero', 'tail_left');
+        this.tail = new Phaser.GameObjects.Sprite(this.scene, 0, 0, 'hero', 'body').setScale(
+            0.9,
+            1,
+        );
 
         this.legs = [0, 1].map((_) =>
-            new Phaser.GameObjects.Sprite(
-                this.scene,
-                0,
-                this.tail.height / 2,
-                'hero',
-                'leg_left',
-            ).setOrigin(0.5, 0),
+            new Phaser.GameObjects.Sprite(this.scene, 0, this.tail.height / 2, 'hero', 'leg')
+                .setOrigin(0.5, 0)
+                .setScale(0.9, 1),
         );
 
         this.hands = [0, 1, 2].map((_) => {
             const hand = new HeroHand(this.scene as GameScene);
             hand.setPosition(0, -this.tail.height / 2);
 
+            hand.setScale(0.9, 1);
             return hand;
         });
 
@@ -102,21 +102,21 @@ export class Hero extends Phaser.GameObjects.Container {
             0,
             -this.tail.height / 2,
             'hero',
-            'head_left',
+            'head',
         ).setOrigin(0.5, 1);
 
         this.add([...this.legs, this.hands[0], this.tail, this.hands[1], this.head, this.hands[2]]);
 
-        this.setScale(2);
+        this.setScale(1.76);
     }
 
     public setHead(type: Hero.Head): void {
         switch (type) {
             case Hero.Head.FRONT:
-                this.head.setTexture('hero', 'head_front');
+                this.head.setTexture('hero', 'head');
                 break;
             case Hero.Head.SIDE:
-                this.head.setTexture('hero', 'head_left');
+                this.head.setTexture('hero', 'head');
         }
     }
 

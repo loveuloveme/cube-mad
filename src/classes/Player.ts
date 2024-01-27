@@ -16,7 +16,7 @@ export class Player extends Phaser.GameObjects.Container {
             jump: 400,
         },
         collider: {
-            w: 25,
+            w: 15,
             h: 64,
         },
     };
@@ -55,7 +55,7 @@ export class Player extends Phaser.GameObjects.Container {
         this.setDepth(3001);
         this.add(this.range.children.getArray());
 
-        const hero = new Hero(scene, 0, -5);
+        const hero = new Hero(scene, 0, -4);
         this.add(hero);
 
         this.hero = hero;

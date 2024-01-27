@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack serve",
-    "build": "cross-env NODE_ENV=production webpack --progress"
+    "build": "cross-env NODE_ENV=production webpack --progress",
+    "extrude": "tile-extruder --tileWidth 32 --tileHeight 32 --input ./src/assets/tilemaps/tiles/blocks.png --output ./src/assets/tilemaps/tiles/blocks-extruded.png"
   },
   "dependencies": {
     "phaser": "^3.24.1",

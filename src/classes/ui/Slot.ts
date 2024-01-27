@@ -58,7 +58,7 @@ export class Slot extends Phaser.GameObjects.Container {
         scene.input.setDraggable(this.container);
         this.setInteractive();
 
-        this.itemSprite = scene.add.sprite(0, 0, 'block', '0');
+        this.itemSprite = scene.add.sprite(0, 0, 'blocks', '0');
         // this.itemSprite.setDisplaySize(this.size.w * 0.65, this.size.h * 0.65);
         this.container.add(this.itemSprite);
 
@@ -177,7 +177,7 @@ export class Slot extends Phaser.GameObjects.Container {
 
         const isBlock = item instanceof Block;
 
-        this.itemSprite.setTexture(isBlock ? 'block' : 'items', item.texture);
+        this.itemSprite.setTexture(isBlock ? 'blocks' : 'items', item.texture);
 
         const mult = isBlock ? 0.65 : 0.9;
         this.itemSprite.setDisplaySize(this.size.w * mult, this.size.h * mult);

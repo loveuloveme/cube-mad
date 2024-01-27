@@ -1,0 +1,52 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "json/text.tmj",
+    "expandedProjectPaths": [
+        "json",
+        ".",
+        "sets"
+    ],
+    "fileStates": {
+        "json/level-1.json": {
+            "scale": 0.33,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 239.39393939393938,
+                "y": 330.30303030303025
+            }
+        },
+        "json/text.tmj": {
+            "scale": 0.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 380,
+                "y": 352
+            }
+        },
+        "json/text.tmj#blocks": {
+            "scaleInDock": 1
+        },
+        "sets/blocks.tsx": {
+            "scaleInDock": 1.5,
+            "scaleInEditor": 1
+        }
+    },
+    "last.exportedFilePath": "C:/Users/Oleg/Desktop/webgl-phaser3-typescript-2mnbt/src/assets/tilemaps/json",
+    "last.imagePath": "C:/Users/Oleg/Desktop/webgl-phaser3-typescript-2mnbt/src/assets/tilemaps/tiles",
+    "map.lastUsedExportFilter": "JSON map-файлы (*.tmj *.json)",
+    "map.lastUsedFormat": "json",
+    "openFiles": [
+        "json/text.tmj"
+    ],
+    "project": "map.tiled-project",
+    "recentFiles": [
+        "json/text.tmj",
+        "json/level-1.json",
+        "sets/blocks.tsx"
+    ],
+    "tileset.embedInMap": true,
+    "tileset.lastUsedFormat": "tsx"
+}

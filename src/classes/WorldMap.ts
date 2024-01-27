@@ -16,7 +16,7 @@ export default class WorldMap {
 
     constructor(scene: Scene) {
         this.tilemap = scene.make.tilemap({ key: 'map', tileWidth: 32, tileHeight: 32 });
-        const tileset = this.tilemap.addTilesetImage('blocks', 'blocks');
+        const tileset = this.tilemap.addTilesetImage('blocks', 'blocks-set', 32, 32, 1, 2);
         this.lightMap = scene.make.tilemap({ key: 'lightMap' });
 
         const tx = scene.textures.createCanvas('dark-tile', 32, 32)!;
@@ -56,16 +56,6 @@ export default class WorldMap {
 
         // this.layers.light = this.layers.light.fill(0);
         this.layers.light.setDepth(100);
-        // this.layers.light.setVisible(false);
-
-        // scene.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
-        //     const tile = this.tilemap.getTileAtWorldXY(pointer.worldX, pointer.worldY);
-        //     console.log(tile);
-
-        //     if (tile) {
-        //         new Destroy(scene).setPosition(tile.pixelX, tile.pixelY);
-        //     }
-        // });
 
         this.health = new Array(this.tilemap.width)
             .fill(0)

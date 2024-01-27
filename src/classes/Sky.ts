@@ -1,7 +1,7 @@
 import { Scene } from 'phaser';
 
 export default class Sky {
-    public time = 350_000;
+    public time = 0;
 
     private sky!: Phaser.GameObjects.TileSprite;
     private clouds!: Phaser.GameObjects.TileSprite;

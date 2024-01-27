@@ -92,7 +92,7 @@ export class GameScene extends Scene {
     update(time: number, delta: number): void {
         this.player.update(time, delta);
         this.background.update(time, delta);
-        // this.sun.update();
+        this.sun.update();
         this.worldMap.update();
         this.marker.update();
         this.dropContainer.update();

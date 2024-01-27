@@ -34,19 +34,12 @@ export class LoadingScene extends Scene {
         this.load.atlas('hero', 'spritesheets/hero.png', 'spritesheets/hero.json');
         this.load.atlas('items', 'spritesheets/items.png', 'spritesheets/items.json');
 
-        // // MAP LOADING
         this.load.image({
-            key: 'tiles',
-            url: 'tilemaps/tiles/dungeon-16-16.png',
-        });
-        this.load.tilemapTiledJSON('dungeon', 'tilemaps/json/dungeon.json');
-
-        this.load.image({
-            key: 'blocks',
-            url: 'tilemaps/tiles/tileset.png',
+            key: 'blocks-set',
+            url: 'tilemaps/tiles/blocks-extruded.png',
         });
 
-        this.load.spritesheet('block', 'tilemaps/tiles/tileset.png', {
+        this.load.spritesheet('blocks', 'tilemaps/tiles/blocks-extruded.png', {
             frameWidth: 32,
             frameHeight: 32,
         });
@@ -56,7 +49,7 @@ export class LoadingScene extends Scene {
             frameHeight: 16,
         });
 
-        this.load.tilemapTiledJSON('map', 'tilemaps/json/map2.json');
+        this.load.tilemapTiledJSON('map', 'tilemaps/json/level-1.json');
     }
 
     create(): void {

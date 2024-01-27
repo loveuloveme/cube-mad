@@ -49,7 +49,7 @@ class HeroHand extends Phaser.GameObjects.Container {
         if (!_item) return;
 
         this.item.setTexture(
-            isTool || !(_item.getItem() instanceof Block) ? 'items' : 'block',
+            isTool || !(_item.getItem() instanceof Block) ? 'items' : 'blocks',
             _item.getItem().texture,
         );
 

@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-namespace */
-import { GameScene } from '@/scenes';
 import Stack from './Stack';
 import Block from './Block';
 import Single from './Single';
 import Tool from './Tool';
+import Unit from '../Unit';
 
 export class Item {
     public stack?: Stack;
@@ -28,7 +29,7 @@ export class Item {
         this.stack = stack;
     }
 
-    public onInteract(scene: GameScene, time: number, delta: number, isInteracted: boolean): void {}
+    public onInteract(context: Unit, time: number, delta: number): void {}
 
     protected onUse?(): void;
 }

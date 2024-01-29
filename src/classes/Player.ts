@@ -7,85 +7,28 @@ import Destroy from './Destroy';
 import Range from './Range';
 import Item from './item/Item';
 import isInRange from '@/helpers/is-in-range';
+import Unit from './Unit';
 
-export class Player extends Phaser.GameObjects.Container {
-    private config = {
-        movement: {
-            speed: 400,
-            jump: 400,
-        },
-        collider: {
-            w: 15,
-            h: 64,
-        },
-    };
-
-    private hero: Hero;
+export class Player extends Unit {
     private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
-    private smoothedControls: SmoothedHorionztalControl;
-    private animator: HeroAnimator;
-
-    private ray!: Raycaster.Ray;
-    private raycaster!: Raycaster;
-
-    scene!: GameScene;
-    public inventory: Inventory = new Inventory(20, 9);
-
-    public dUnit: Destroy | null = null;
-
-    private isInteraction = false;
 
     lastJumpedAt = 0;
 
     private range: Range;
-    private rangeValue = 150;
 
     constructor(scene: GameScene) {
-        super(scene, 700, 0);
-        this.setSize(this.config.collider.w, this.config.collider.h);
-
-        scene.physics.world.enable(this);
-        (this.body as Phaser.Physics.Arcade.Body).setCollideWorldBounds(true);
+        super(scene);
 
         scene.add.existing(this);
 
-        this.range = new Range(this.scene, this.rangeValue);
-        this.setDepth(3001);
+        this.range = new Range(this.scene, this.iRadius);
         this.add(this.range.children.getArray());
 
-        const hero = new Hero(scene, 0, -4);
-        this.add(hero);
-
-        this.hero = hero;
-
-        this.animator = new HeroAnimator(hero);
-
         this.cursors = scene.input.keyboard!.createCursorKeys();
-        this.smoothedControls = new SmoothedHorionztalControl(0.001);
-
-        this.raycaster = (scene as GameScene).raycasterPlugin.createRaycaster();
-
-        this.raycaster.mapGameObjects(scene.worldMap.layers.ground, true, {
-            collisionTiles: [-1],
-        });
-
-        this.ray = this.raycaster.createRay();
-        this.ray.setDetectionRange(this.rangeValue);
-
-        this.inventory.on('update', () => {
-            this.hero.setItem(this.inventory.getActive());
-        });
 
         scene.input.on('pointerdown', () => {
-            this.isInteraction = true;
-            this.range.setPointer(0);
+            this.setAction(Unit.Action.MOVE_LEFT);
         });
-
-        scene.input.on('pointerup', () => {
-            this.isInteraction = false;
-        });
-
-        // scene.input.on('pointermove', (pointer: Phaser.Input.Pointer) => {});
     }
 
     private setMarker(): void {
@@ -150,7 +93,7 @@ export class Player extends Phaser.GameObjects.Container {
             return true;
         })();
 
-        const inRange = Phaser.Math.Distance.Between(this.x, this.y, x, y) <= this.rangeValue;
+        const inRange = Phaser.Math.Distance.Between(this.x, this.y, x, y) <= this.iRadius;
 
         const markerX = scene.worldMap.tilemap.tileToWorldX(pointerTileX)!;
         const markerY = scene.worldMap.tilemap.tileToWorldY(pointerTileY)!;
@@ -171,7 +114,6 @@ export class Player extends Phaser.GameObjects.Container {
 
         if (isCrossX && isCrossY) {
             marker.hide();
-            return;
         }
 
         if (!!isSet && inRange) {
@@ -181,110 +123,27 @@ export class Player extends Phaser.GameObjects.Container {
         }
     }
 
-    private setMovement(time: number, delta: number) {
-        let oldVelocityX;
-        let targetVelocityX;
-        let newVelocityX;
-
-        const body = this.body as Phaser.Physics.Arcade.Body;
-        const scene = this.scene as GameScene;
-        const marker = scene.marker;
-
-        if (this.cursors.left.isDown || this.cursors.right.isDown) {
-            const multiply = this.cursors.left.isDown ? -1 : 1;
-
-            if (multiply < 0) {
-                this.smoothedControls.moveLeft(delta);
-            } else {
-                this.smoothedControls.moveRight(delta);
-            }
-
-            if (!this.isInteraction) {
-                //|| marker.isHidden()
-                this.hero.scaleX = Math.abs(this.hero.scaleX) * multiply;
-            }
-
-            oldVelocityX = body.velocity.x;
-            targetVelocityX = this.config.movement.speed * multiply;
-
-            newVelocityX = Phaser.Math.Linear(
-                oldVelocityX,
-                targetVelocityX,
-                this.smoothedControls.value * multiply,
-            );
-
-            body.setVelocityX(newVelocityX);
-        } else {
-            body.setVelocityX(0);
-            this.smoothedControls.reset();
-        }
-
-        const canJump = time - this.lastJumpedAt > 750;
-
-        if (this.cursors.up.isDown && canJump && body.onFloor()) {
-            body.setVelocityY(-this.config.movement.jump);
-            this.lastJumpedAt = time;
-        }
-    }
-
-    public setInteraction(): void {
-        const marker = this.scene.marker;
-        if (this.isInteraction) {
-            let angle = Phaser.Math.Angle.Between(this.x, this.y, marker.x + 16, marker.y + 16);
-
-            if (this.hero.scaleX < 0) {
-                angle = Math.abs(Math.abs(angle) - Math.PI) * Math.sign(angle);
-            }
-
-            if (!marker.isHidden()) {
-                this.hero.setActiveHandAngle(angle - Math.PI / 2);
-                if (Math.abs(marker.x + 16 - this.x) > 32) {
-                    this.hero.scaleX =
-                        Math.abs(this.hero.scaleX) * (marker.x + 16 > this.x ? 1 : -1);
-                }
-            }
-        }
-
-        if (!this.isInteraction || marker.isHidden()) {
-            this.hero.setActiveHandAngle(0);
-        }
-    }
-
-    public setAnimation(): void {
-        const marker = this.scene.marker;
-
-        const body = this.body as Phaser.Physics.Arcade.Body;
-
-        if (Math.abs(body.velocity.x) > 0) {
-            this.animator.setAnimation('run');
-        } else {
-            this.animator.setAnimation('idle');
-        }
-
-        if (this.isInteraction && !marker.isHidden()) {
-            this.animator.setInteract();
-        }
-    }
-
-    public useAnimation(): void {
-        this.animator.createActivateAnimation();
+    private setControls(): void {
+        this.toggleAction(Unit.Action.MOVE_LEFT, this.cursors.left.isDown);
+        this.toggleAction(Unit.Action.MOVE_RIGHT, this.cursors.right.isDown);
+        this.toggleAction(Unit.Action.MOVE_TOP, this.cursors.up.isDown);
+        this.toggleAction(Unit.Action.INTERACTION, this.scene.input.activePointer.isDown);
     }
 
     update(time: number, delta: number): void {
-        this.inventory.update();
-        this.range.setVisible(this.isInteraction && this.inventory.getActive() !== null);
-
         this.setMarker();
-        this.hero.update(time, delta);
+        this.setControls();
 
-        this.inventory
-            .getActive()
-            ?.getItem()
-            .onInteract(this.scene, time, delta, this.isInteraction);
+        const marker = this.scene.marker;
 
-        this.hero.setItem(this.inventory.getActive()?.getItem() ?? null);
-        this.setMovement(time, delta);
-        this.setInteraction();
-        this.setAnimation();
+        if (!marker.isHidden()) {
+            this.setInteractPos(marker.x, marker.y);
+        } else {
+            this.setInteractPos(null);
+        }
+
+        this.range.setVisible(this.scene.input.activePointer.isDown);
+
+        super.update(time, delta);
     }
 }

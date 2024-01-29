@@ -1,21 +1,19 @@
-import { GameScene } from '@/scenes';
 import Item from './Item';
+import Unit from '../Unit';
 
 export default class Block extends Item {
     public mode: Item.Mode = Item.Mode.SPACE; // EMPTY
 
-    public onInteract(scene: GameScene, time: number, delta: number, isInteracted: boolean): void {
-        const { marker, player } = scene;
-
-        if (marker.isHidden() || !isInteracted) {
+    public onInteract(context: Unit, time: number, delta: number): void {
+        if (!context.iPos || !context.isInteraction()) {
             return;
         }
 
-        const x = marker.x;
-        const y = marker.y;
+        const x = context.iPos.x;
+        const y = context.iPos.y;
 
-        scene.worldMap.layers.ground.putTileAtWorldXY(this.id, x, y);
-        player.useAnimation();
+        context.scene.worldMap.layers.ground.putTileAtWorldXY(this.id, x, y);
+        context.useAnimation();
 
         if (this.stack) {
             this.stack.onUse();

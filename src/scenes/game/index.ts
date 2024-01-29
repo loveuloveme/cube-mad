@@ -117,7 +117,7 @@ export class GameScene extends Scene {
         this.worldMap.update();
         this.marker.update();
         this.dropContainer.update();
-        this.enemy.update(time, delta);
+        // this.enemy.update(time, delta);
 
         // this.l.setPosition(this.player.x, this.player.y);
     }

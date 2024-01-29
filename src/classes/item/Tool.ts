@@ -1,32 +1,30 @@
-import { GameScene } from '@/scenes';
 import Destroy from '../Destroy';
 import Item from './Item';
+import Unit from '../Unit';
 
 export default class Tool extends Item {
-    public onInteract(scene: GameScene, time: number, delta: number, isInteracted: boolean): void {
-        const { marker, player } = scene;
-
-        if (marker.isHidden() || !isInteracted) {
-            player.dUnit?.destroy();
-            player.dUnit = null;
+    public onInteract(context: Unit, time: number, delta: number): void {
+        if (!context.iPos || !context.isInteraction()) {
+            context.dUnit?.destroy();
+            context.dUnit = null;
             return;
         }
 
-        const x = marker.x;
-        const y = marker.y;
+        const x = context.iPos.x;
+        const y = context.iPos.y;
 
-        const tile = scene.worldMap.layers.ground.getTileAtWorldXY(x, y);
+        const tile = context.scene.worldMap.layers.ground.getTileAtWorldXY(x, y);
 
-        if (tile !== player.dUnit?.tile) {
-            player.dUnit?.destroy();
-            player.dUnit = null;
+        if (tile !== context.dUnit?.tile) {
+            context.dUnit?.destroy();
+            context.dUnit = null;
 
-            player.dUnit = new Destroy(scene, tile);
+            context.dUnit = new Destroy(context.scene, tile);
         }
 
-        if (player.dUnit?.active) {
-            player.dUnit.setDepth(10000);
-            player.dUnit.update(time, delta);
+        if (context.dUnit?.active) {
+            context.dUnit.setDepth(10000);
+            context.dUnit.update(time, delta);
         }
     }
 }

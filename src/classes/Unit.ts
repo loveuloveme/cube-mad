@@ -22,16 +22,17 @@ export class Unit extends Phaser.GameObjects.Container {
     };
 
     private hero: Hero;
-    private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
     private smoothedControls: SmoothedHorionztalControl;
     private animator: HeroAnimator;
     public inventory!: Inventory;
+    public dUnit: Destroy | null = null;
 
     scene!: GameScene;
-
-    private isInteraction = false;
     lastJumpedAt = 0;
     body!: Phaser.Physics.Arcade.Body;
+
+    public iPos: Phaser.Math.Vector2 | null = null;
+    iRadius = 150;
 
     constructor(scene: GameScene, config?: Unit.Config) {
         super(scene, 700, 0);
@@ -51,7 +52,6 @@ export class Unit extends Phaser.GameObjects.Container {
 
         this.add(this.hero);
 
-        this.cursors = scene.input.keyboard!.createCursorKeys();
         this.smoothedControls = new SmoothedHorionztalControl(0.001);
     }
 
@@ -78,7 +78,7 @@ export class Unit extends Phaser.GameObjects.Container {
                 this.smoothedControls.moveRight(delta);
             }
 
-            if (!this.isInteraction) {
+            if (!this.isInteraction()) {
                 this.hero.scaleX = Math.abs(this.hero.scaleX) * multiply;
             }
 
@@ -106,24 +106,22 @@ export class Unit extends Phaser.GameObjects.Container {
     }
 
     public setInteraction(): void {
-        const marker = this.scene.marker;
-        if (this.isInteraction) {
+        const marker = this.iPos;
+
+        if (this.isInteraction() && marker) {
             let angle = Phaser.Math.Angle.Between(this.x, this.y, marker.x + 16, marker.y + 16);
 
             if (this.hero.scaleX < 0) {
                 angle = Math.abs(Math.abs(angle) - Math.PI) * Math.sign(angle);
             }
 
-            if (!marker.isHidden()) {
-                this.hero.setActiveHandAngle(angle - Math.PI / 2);
-                if (Math.abs(marker.x + 16 - this.x) > 32) {
-                    this.hero.scaleX =
-                        Math.abs(this.hero.scaleX) * (marker.x + 16 > this.x ? 1 : -1);
-                }
+            this.hero.setActiveHandAngle(angle - Math.PI / 2);
+            if (Math.abs(marker.x + 16 - this.x) > 32) {
+                this.hero.scaleX = Math.abs(this.hero.scaleX) * (marker.x + 16 > this.x ? 1 : -1);
             }
         }
 
-        if (!this.isInteraction || marker.isHidden()) {
+        if (!this.isInteraction() || !marker) {
             this.hero.setActiveHandAngle(0);
         }
     }
@@ -139,7 +137,7 @@ export class Unit extends Phaser.GameObjects.Container {
             this.animator.setAnimation('idle');
         }
 
-        if (this.isInteraction && !marker.isHidden()) {
+        if (this.isInteraction() && !marker.isHidden()) {
             this.animator.setInteract();
         }
     }
@@ -148,24 +146,52 @@ export class Unit extends Phaser.GameObjects.Container {
         this.animator.createActivateAnimation();
     }
 
-    actions: Unit.Action[] = [Unit.Action.MOVE_TOP, Unit.Action.MOVE_LEFT];
+    actions: Unit.Action[] = [Unit.Action.INTERACTION];
 
-    public setAction(action: Unit.Action) {
-        this.actions.push(action);
+    public setAction(action: Unit.Action): void {
+        if (!this.actions.find((v) => v === action)) {
+            this.actions.push(action);
+        }
+    }
+
+    public removeAction(action: Unit.Action): void {
+        this.actions = this.actions.filter((v) => v !== action);
+    }
+
+    public toggleAction(action: Unit.Action, isAdd: boolean): void {
+        if (isAdd) {
+            this.setAction(action);
+        } else {
+            this.removeAction(action);
+        }
+    }
+
+    public isInteraction(): boolean {
+        return this.actions.some((v) => v === Unit.Action.INTERACTION);
+    }
+
+    public setInteractPos(x: number | null, y?: number): void {
+        if (x === null) {
+            this.iPos = null;
+            return;
+        }
+
+        if (y) {
+            const isInRadius = Phaser.Math.Distance.Between(this.x, this.y, x, y) <= this.iRadius;
+            this.iPos = isInRadius ? new Phaser.Math.Vector2(x, y) : null;
+        }
     }
 
     update(time: number, delta: number): void {
         this.hero.update(time, delta);
 
-        this.inventory
-            .getActive()
-            ?.getItem()
-            .onInteract(this.scene, time, delta, this.isInteraction);
+        this.inventory.getActive()?.getItem().onInteract(this, time, delta);
+        this.hero.setItem(this.inventory.getActive()?.getItem());
 
-        this.hero.setItem(this.inventory.getActive()?.getItem() ?? null);
         this.setMovement(time, delta);
         this.setInteraction();
         this.setAnimation();
+        this.inventory.update();
     }
 }
 
@@ -187,6 +213,7 @@ export namespace Unit {
         MOVE_RIGHT,
         MOVE_TOP,
         MOVE_BOTTOM,
+        INTERACTION,
     }
 }
 

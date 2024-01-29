@@ -6,6 +6,8 @@ import Stack from './item/Stack';
 import Single from './item/Single';
 import EventEmitter from 'events';
 import { blocks, items } from '@/instances';
+import IronPickaxe from './objects/items/IronPickaxe';
+import Dirt from './objects/blocks/Dirt';
 
 export default class Inventory extends EventEmitter {
     private inv: Item.Type[] | null[];
@@ -26,7 +28,7 @@ export default class Inventory extends EventEmitter {
 
         this.inv[0] = new Single(items.getById(0));
         this.inv[1] = new Single(items.getById(1));
-        this.inv[2] = new Stack(blocks.getById(1));
+        this.inv[2] = new Stack(new Dirt()); //blocks.getById(1)
         // this.inv[1] = new Stack(blocks[0]);
         // this.inv[3] = items[2];
         // this.inv[4] = blocks[1];

@@ -2,7 +2,6 @@ import Hero from '@/classes/Hero';
 import HeroAnimator from '@/classes/HeroAnimator';
 import { SmoothedHorionztalControl } from './SmoothedHorionztalControl';
 import Inventory from './Inventory';
-import Light from './Light';
 import { GameScene } from '@/scenes';
 import Destroy from './Destroy';
 import Range from './Range';
@@ -25,7 +24,6 @@ export class Player extends Phaser.GameObjects.Container {
     private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
     private smoothedControls: SmoothedHorionztalControl;
     private animator: HeroAnimator;
-    private lightning: Light;
 
     private ray!: Raycaster.Ray;
     private raycaster!: Raycaster;

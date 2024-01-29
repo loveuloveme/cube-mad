@@ -7,6 +7,7 @@ import Marker from '@/classes/Marker';
 import DropContainer from '@/classes/DropContainer';
 import { Single, Stack } from '@/classes/item';
 import { blocks, items } from '@/instances';
+import Unit from '@/classes/Unit';
 
 export class GameScene extends Scene {
     public worldMap!: WorldMap;
@@ -24,13 +25,12 @@ export class GameScene extends Scene {
     create(): void {
         this.cameras.main.setZoom(2.5);
 
+        this.units = this.add.group();
         this.background = new Sky(this);
         this.worldMap = new WorldMap(this);
         this.marker = new Marker(this);
         this.player = new Player(this);
         this.dropContainer = new DropContainer(this);
-
-        this.physics.add.collider(this.player, this.worldMap.layers.ground);
 
         this.cameras.main.setBounds(
             0,
@@ -100,7 +100,15 @@ export class GameScene extends Scene {
 
         // this.worldMap.layers.ground.setPipeline('Light2D');
         // this.worldMap.layers.background.setPipeline('Light2D');
+
+        this.enemy = new Unit(this);
+
+        this.units.add(this.player);
+        this.units.add(this.enemy);
+        this.physics.add.collider(this.units, this.worldMap.layers.ground);
     }
+
+    units!: Phaser.GameObjects.Group;
 
     update(time: number, delta: number): void {
         this.player.update(time, delta);
@@ -109,6 +117,7 @@ export class GameScene extends Scene {
         this.worldMap.update();
         this.marker.update();
         this.dropContainer.update();
+        this.enemy.update(time, delta);
 
         // this.l.setPosition(this.player.x, this.player.y);
     }

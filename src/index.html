@@ -12,6 +12,13 @@
             src: url("assets/fonts/hardpixel.otf") format("opentype");
         }
 
+        @font-face {
+            font-family: 'GlassTown';
+            font-style: normal;
+            font-weight: normal;
+            src: url("assets/fonts/glasstown.ttf") format('truetype');
+        }
+
         html,
         body {
             font-family: 'HardPixel', serif;
@@ -19,14 +26,20 @@
             padding: 0;
         }
 
-        .debug{
+        .debug, .debug-2 {
             height: 0;
             width: 0;
             overflow: hidden;
         }
+
+        .debug-2{
+            font-family: 'GlassTown', serif;
+        }
     </style>
 </head>
 <div class="debug">123</div>
+<div class="debug-2">123</div>
+
 <body>
     <div id="game"></div>
 </body>

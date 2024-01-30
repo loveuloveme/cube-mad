@@ -5,8 +5,8 @@ import Unit from '../Unit';
 export default class Tool extends Item {
     public onInteract(context: Unit, time: number, delta: number): void {
         if (!context.iPos || !context.isInteraction()) {
-            context.dUnit?.destroy();
-            context.dUnit = null;
+            context.destroyer?.destroy();
+            context.destroyer = null;
             return;
         }
 
@@ -15,16 +15,16 @@ export default class Tool extends Item {
 
         const tile = context.scene.worldMap.layers.ground.getTileAtWorldXY(x, y);
 
-        if (tile !== context.dUnit?.tile) {
-            context.dUnit?.destroy();
-            context.dUnit = null;
+        if (tile !== context.destroyer?.tile) {
+            context.destroyer?.destroy();
+            context.destroyer = null;
 
-            context.dUnit = new Destroy(context.scene, tile);
+            context.destroyer = new Destroy(context.scene, tile);
         }
 
-        if (context.dUnit?.active) {
-            context.dUnit.setDepth(10000);
-            context.dUnit.update(time, delta);
+        if (context.destroyer?.active) {
+            context.destroyer.setDepth(10000);
+            context.destroyer.update(time, delta);
         }
     }
 }

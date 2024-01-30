@@ -88,7 +88,8 @@ export class Slot extends Phaser.GameObjects.Container {
         this.stackText = this.scene.add
             .text(30, 30, '64', { fontFamily: 'HardPixel' })
             .setFontSize(24)
-            .setOrigin(1, 1);
+            .setOrigin(1, 1)
+            .setResolution(10);
 
         this.container.add(this.stackText);
         this.add([hover, zone, this.container, highlight]);

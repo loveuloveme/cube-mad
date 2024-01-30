@@ -19,18 +19,21 @@ export class Unit extends Phaser.GameObjects.Container {
         },
     };
 
+    private title: Phaser.GameObjects.Text;
     private hero: Hero;
     private smoothedControls: SmoothedHorionztalControl;
     private animator: HeroAnimator;
     public inventory!: Inventory;
-    public dUnit: Destroy | null = null;
+    public destroyer: Destroy | null = null;
 
     scene!: GameScene;
     lastJumpedAt = 0;
     body!: Phaser.Physics.Arcade.Body;
 
     public iPos: Phaser.Math.Vector2 | null = null;
-    iRadius = 150;
+    public iRadius = 150;
+
+    public name = 'Нубик';
 
     constructor(scene: GameScene, config?: Unit.Config) {
         super(scene, 700, 0);
@@ -48,7 +51,14 @@ export class Unit extends Phaser.GameObjects.Container {
         this.animator = new HeroAnimator(this.hero);
         this.inventory = new Inventory(20, 9);
 
+        this.title = this.scene.add
+            .text(0, -this.config.collider.h / 2 - 10, this.name, { fontFamily: 'HardPixel' })
+            .setFontSize(10)
+            .setOrigin(0.5)
+            .setResolution(10);
+
         this.add(this.hero);
+        this.add(this.title);
 
         this.smoothedControls = new SmoothedHorionztalControl(0.001);
     }
@@ -184,8 +194,8 @@ export class Unit extends Phaser.GameObjects.Container {
     }
 
     public setDestroy(): void {
-        if (this.dUnit?.isDone()) {
-            const { tile } = this.dUnit;
+        if (this.destroyer?.isDone()) {
+            const { tile } = this.destroyer;
 
             const drop = this.scene.dropContainer.createDrop(
                 tile.pixelX + tile.width / 2,

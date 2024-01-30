@@ -24,13 +24,6 @@ export class LoadingScene extends Scene {
         this.load.image('stash', 'sprites/ui/stash.png');
         this.load.image('stash-marker', 'sprites/ui/stash-marker.png');
 
-        this.load.image('ground', 'sprites/platform.png');
-
-        // PLAYER LOADING
-
-        this.load.image('king', 'sprites/king.png');
-        this.load.atlas('a-king', 'spritesheets/a-king.png', 'spritesheets/a-king_atlas.json');
-
         this.load.atlas('hero', 'spritesheets/hero.png', 'spritesheets/hero.json');
         this.load.atlas('items', 'spritesheets/items.png', 'spritesheets/items.json');
 
@@ -39,7 +32,7 @@ export class LoadingScene extends Scene {
             url: 'tilemaps/tiles/blocks-extruded.png',
         });
 
-        this.load.spritesheet('blocks', 'tilemaps/tiles/blocks-extruded.png', {
+        this.load.spritesheet('blocks', 'tilemaps/tiles/blocks.png', {
             frameWidth: 32,
             frameHeight: 32,
         });

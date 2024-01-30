@@ -79,13 +79,13 @@ export class GameScene extends Scene {
         this.dropContainer.createDrop(
             this.worldMap.tilemap.widthInPixels / 2 + 100,
             200,
-            new Stack(blocks.getById(1)),
+            new Stack(blocks.getById(180)),
         );
 
         this.dropContainer.createDrop(
             this.worldMap.tilemap.widthInPixels / 2 + 200,
             200,
-            new Stack(blocks.getById(1)),
+            new Stack(blocks.getById(180)),
         );
 
         // this.lights.enable();

@@ -17,27 +17,15 @@ export default class Destroy extends Phaser.GameObjects.Sprite {
         this.setPosition(tile.pixelX, tile.pixelY);
     }
 
+    public isDone() {
+        return this.health <= 0;
+    }
+
     update(time: number, delta: number) {
         this.health -= (1 * delta) / 1000;
         this.setTexture('destroy', Math.floor((1 - this.health) * 8));
 
         (this.scene as GameScene).marker.setPosition(this.tile.pixelX, this.tile.pixelY);
-
-        if (this.health < 0) {
-            this.health = 1;
-
-            this.tile.tilemapLayer?.putTileAt(-1, this.tile.x, this.tile.y);
-
-            const drop = this.scene.dropContainer.createDrop(
-                this.tile.pixelX + this.tile.width / 2,
-                this.tile.pixelY + this.tile.height / 2,
-                new Block(1, 'Dirt'),
-            );
-
-            const body = drop.body as Phaser.Physics.Arcade.Body;
-            Phaser.Math.RandomXY(body.velocity, 50);
-            body.setDrag(100);
-        }
     }
 
     // destroy(fromScene?: boolean | undefined): void {

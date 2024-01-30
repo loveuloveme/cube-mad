@@ -42,7 +42,7 @@ class HeroHand extends Phaser.GameObjects.Container {
         });
     }
 
-    public setItem(_item: Item.Type) {
+    public setItem(_item: Item.Type | null) {
         const isTool = _item instanceof Tool;
         this.item.setVisible(!!_item);
 
@@ -72,7 +72,7 @@ export class Hero extends Phaser.GameObjects.Container {
     public legs: Phaser.GameObjects.Sprite[];
     public hands: HeroHand[];
 
-    private item!: Item.Type;
+    private item!: Item.Type | null;
 
     constructor(scene: Phaser.Scene, x: number, y: number) {
         super(scene, x, y);
@@ -120,7 +120,7 @@ export class Hero extends Phaser.GameObjects.Container {
         }
     }
 
-    public setItem(item: Item.Type): void {
+    public setItem(item: Item.Type | null): void {
         this.item = item;
     }
 
@@ -143,7 +143,7 @@ export class Hero extends Phaser.GameObjects.Container {
         }
     }
 
-    public update(time: number, delta: number) {
+    public update(time: number, delta: number): void {
         [null, this.item, this.item].forEach((item, i) => this.hands[i].setItem(item));
 
         const isInAction = this.hands[2].rotation !== 0;

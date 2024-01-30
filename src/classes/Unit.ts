@@ -5,9 +5,7 @@ import { SmoothedHorionztalControl } from './SmoothedHorionztalControl';
 import Inventory from './Inventory';
 import { GameScene } from '@/scenes';
 import Destroy from './Destroy';
-import Range from './Range';
-import Item from './item/Item';
-import isInRange from '@/helpers/is-in-range';
+import { blocks } from '@/instances';
 
 export class Unit extends Phaser.GameObjects.Container {
     private config: Unit.Config = {
@@ -66,7 +64,10 @@ export class Unit extends Phaser.GameObjects.Container {
             (v) => v === Unit.Action.MOVE_LEFT || v === Unit.Action.MOVE_RIGHT,
         );
 
-        const isLeft = this.actions.some((v) => v === Unit.Action.MOVE_LEFT);
+        const isLeft =
+            this.actions
+                .filter((v) => v === Unit.Action.MOVE_LEFT || v === Unit.Action.MOVE_RIGHT)
+                .at(-1) === Unit.Action.MOVE_LEFT;
         const isJump = this.actions.some((v) => v === Unit.Action.MOVE_TOP);
 
         if (isMoving) {
@@ -149,7 +150,7 @@ export class Unit extends Phaser.GameObjects.Container {
     actions: Unit.Action[] = [Unit.Action.INTERACTION];
 
     public setAction(action: Unit.Action): void {
-        if (!this.actions.find((v) => v === action)) {
+        if (this.actions.findIndex((v) => v === action) === -1) {
             this.actions.push(action);
         }
     }
@@ -182,12 +183,30 @@ export class Unit extends Phaser.GameObjects.Container {
         }
     }
 
+    public setDestroy(): void {
+        if (this.dUnit?.isDone()) {
+            const { tile } = this.dUnit;
+
+            const drop = this.scene.dropContainer.createDrop(
+                tile.pixelX + tile.width / 2,
+                tile.pixelY + tile.height / 2,
+                blocks.getById(tile.index),
+            );
+
+            tile.tilemapLayer?.putTileAt(-1, tile.x, tile.y);
+
+            const body = drop.body as Phaser.Physics.Arcade.Body;
+            Phaser.Math.RandomXY(body.velocity, 50);
+            body.setDrag(100);
+        }
+    }
+
     update(time: number, delta: number): void {
         this.hero.update(time, delta);
 
         this.inventory.getActive()?.getItem().onInteract(this, time, delta);
-        this.hero.setItem(this.inventory.getActive()?.getItem());
-
+        this.hero.setItem(this.inventory.getActive()?.getItem() ?? null);
+        this.setDestroy();
         this.setMovement(time, delta);
         this.setInteraction();
         this.setAnimation();

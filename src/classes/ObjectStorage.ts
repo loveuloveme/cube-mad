@@ -8,6 +8,12 @@ export default class ObjectStorage {
     }
 
     public getById(id: number): Item.RealType {
-        return this.items.find((item) => item.id === id)!;
+        const item = this.items.find((item) => item.id === id)!;
+
+        if (!item) {
+            throw new Error('No Item with id: ' + id);
+        }
+
+        return item;
     }
 }

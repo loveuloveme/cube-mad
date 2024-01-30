@@ -17,7 +17,7 @@ export class Item {
         public stackable = true,
     ) {
         if (!texture) {
-            this.texture = id;
+            this.texture = id - 1;
         }
     }
 

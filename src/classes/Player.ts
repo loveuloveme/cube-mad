@@ -114,6 +114,7 @@ export class Player extends Unit {
 
         if (isCrossX && isCrossY) {
             marker.hide();
+            return;
         }
 
         if (!!isSet && inRange) {

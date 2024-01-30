@@ -2,7 +2,9 @@ import { Item } from '.';
 
 export default class Stack {
     constructor(public item: Item.RealType, private count = 5) {
-        item.setStack(this);
+        this.item = Object.assign(Object.create(Object.getPrototypeOf(item)), item);
+
+        this.item.setStack(this);
     }
 
     public increase(count?: number): void {

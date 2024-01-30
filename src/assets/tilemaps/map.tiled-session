@@ -3,11 +3,12 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "json/text.tmj",
+    "activeFile": "",
     "expandedProjectPaths": [
+        "tiles",
+        "sets",
         "json",
-        ".",
-        "sets"
+        "."
     ],
     "fileStates": {
         "json/level-1.json": {
@@ -17,6 +18,18 @@
                 "x": 239.39393939393938,
                 "y": 330.30303030303025
             }
+        },
+        "json/level-1.tmj": {
+            "scale": 0.41562499999999997,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 2059.5488721804513,
+                "y": 466.7669172932332
+            }
+        },
+        "json/level-1.tmj#blocks": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         },
         "json/text.tmj": {
             "scale": 0.5,
@@ -39,10 +52,11 @@
     "map.lastUsedExportFilter": "JSON map-файлы (*.tmj *.json)",
     "map.lastUsedFormat": "json",
     "openFiles": [
-        "json/text.tmj"
+        "json/level-1.tmj"
     ],
     "project": "map.tiled-project",
     "recentFiles": [
+        "json/level-1.tmj",
         "json/text.tmj",
         "json/level-1.json",
         "sets/blocks.tsx"

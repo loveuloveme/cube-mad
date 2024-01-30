@@ -102,6 +102,7 @@ export class GameScene extends Scene {
         // this.worldMap.layers.background.setPipeline('Light2D');
 
         this.enemy = new Unit(this);
+        this.enemy.name = 'Зомби';
 
         this.units.add(this.player);
         this.units.add(this.enemy);
@@ -117,7 +118,7 @@ export class GameScene extends Scene {
         this.worldMap.update();
         this.marker.update();
         this.dropContainer.update();
-        // this.enemy.update(time, delta);
+        this.enemy.update(time, delta);
 
         // this.l.setPosition(this.player.x, this.player.y);
     }

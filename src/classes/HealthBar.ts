@@ -1,49 +1,34 @@
-class HealthBar {
-    constructor(scene, x, y) {
-        this.bar = new Phaser.GameObjects.Graphics(scene);
+import { GameScene } from '@/scenes';
 
-        this.x = x;
-        this.y = y;
-        this.value = 100;
-        this.p = 76 / 100;
+export default class HealthBar extends Phaser.GameObjects.Container {
+    private hearts!: Phaser.GameObjects.Group;
 
-        this.draw();
+    constructor(scene: GameScene, x: number, y: number, max: number) {
+        super(scene);
 
-        scene.add.existing(this.bar);
+        this.scene.add.existing(this);
+
+        this.hearts = scene.add.group({ classType: Phaser.GameObjects.Image });
+
+        this.hearts.createMultiple({
+            key: 'heart',
+            setXY: {
+                x,
+                y,
+                stepX: 10,
+            },
+            quantity: max,
+        });
+
+        this.add(this.hearts.getChildren());
     }
 
-    decrease(amount) {
-        this.value -= amount;
+    public setHealth(health: number): void {
+        this.hearts.children.each((go, idx) => {
+            const heart = go as Phaser.GameObjects.Image;
+            heart.setTexture('heart', idx < health ? 0 : 1);
 
-        if (this.value < 0) {
-            this.value = 0;
-        }
-
-        this.draw();
-
-        return this.value === 0;
-    }
-
-    draw() {
-        this.bar.clear();
-
-        //  BG
-        this.bar.fillStyle(0x000000);
-        this.bar.fillRect(this.x, this.y, 80, 16);
-
-        //  Health
-
-        this.bar.fillStyle(0xffffff);
-        this.bar.fillRect(this.x + 2, this.y + 2, 76, 12);
-
-        if (this.value < 30) {
-            this.bar.fillStyle(0xff0000);
-        } else {
-            this.bar.fillStyle(0x00ff00);
-        }
-
-        const d = Math.floor(this.p * this.value);
-
-        this.bar.fillRect(this.x + 2, this.y + 2, d, 12);
+            return true;
+        });
     }
 }

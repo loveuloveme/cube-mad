@@ -37,6 +37,11 @@ export class LoadingScene extends Scene {
             frameHeight: 32,
         });
 
+        this.load.spritesheet('heart', 'spritesheets/heart.png', {
+            frameWidth: 8,
+            frameHeight: 8,
+        });
+
         this.load.spritesheet('destroy', 'spritesheets/destroy.png', {
             frameWidth: 16,
             frameHeight: 16,

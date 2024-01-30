@@ -6,9 +6,10 @@ import Inventory from './Inventory';
 import { GameScene } from '@/scenes';
 import Destroy from './Destroy';
 import { blocks } from '@/instances';
+import HealthBar from './HealthBar';
 
 export class Unit extends Phaser.GameObjects.Container {
-    private config: Unit.Config = {
+    protected config: Unit.Config = {
         movement: {
             speed: 400,
             jump: 400,
@@ -17,12 +18,15 @@ export class Unit extends Phaser.GameObjects.Container {
             w: 15,
             h: 64,
         },
+        health: 5,
     };
 
-    private title: Phaser.GameObjects.Text;
-    private hero: Hero;
-    private smoothedControls: SmoothedHorionztalControl;
-    private animator: HeroAnimator;
+    protected title: Phaser.GameObjects.Text;
+    protected healthBar: HealthBar;
+    protected hero: Hero;
+    protected smoothedControls: SmoothedHorionztalControl;
+    protected animator: HeroAnimator;
+
     public inventory!: Inventory;
     public destroyer: Destroy | null = null;
 
@@ -33,7 +37,9 @@ export class Unit extends Phaser.GameObjects.Container {
     public iPos: Phaser.Math.Vector2 | null = null;
     public iRadius = 150;
 
-    public name = 'Нубик';
+    public name = '';
+
+    private health: number;
 
     constructor(scene: GameScene, config?: Unit.Config) {
         super(scene, 700, 0);
@@ -47,18 +53,30 @@ export class Unit extends Phaser.GameObjects.Container {
 
         this.setDepth(3001);
 
+        this.health = this.config.health;
+
         this.hero = new Hero(scene, 0, -4);
         this.animator = new HeroAnimator(this.hero);
         this.inventory = new Inventory(20, 9);
 
         this.title = this.scene.add
-            .text(0, -this.config.collider.h / 2 - 10, this.name, { fontFamily: 'HardPixel' })
-            .setFontSize(10)
+            .text(0, -this.config.collider.h / 2 - 16, this.name, { fontFamily: 'HardPixel' })
+            .setFontSize(8)
             .setOrigin(0.5)
             .setResolution(10);
 
+        this.healthBar = new HealthBar(
+            scene,
+            0,
+            -this.config.collider.h / 2 - 9,
+            this.config.health,
+        );
+
+        this.healthBar.setX(-(this.healthBar.last as Phaser.GameObjects.Image).x / 2);
+
         this.add(this.hero);
         this.add(this.title);
+        this.add(this.healthBar);
 
         this.smoothedControls = new SmoothedHorionztalControl(0.001);
     }
@@ -211,6 +229,27 @@ export class Unit extends Phaser.GameObjects.Container {
         }
     }
 
+    handleDamage(damage: number) {
+        // if (this._health <= 0) {
+        //     return;
+        // }
+        // if (this.healthState === HealthState.DAMAGE) {
+        //     return;
+        // }
+        // --this._health;
+        // if (this._health <= 0) {
+        //     // TODO: die
+        //     this.healthState = HealthState.DEAD;
+        //     this.anims.play('faune-faint');
+        //     this.setVelocity(0, 0);
+        // } else {
+        //     this.setVelocity(dir.x, dir.y);
+        //     this.setTint(0xff0000);
+        //     this.healthState = HealthState.DAMAGE;
+        //     this.damageTime = 0;
+        // }
+    }
+
     update(time: number, delta: number): void {
         this.hero.update(time, delta);
 
@@ -221,6 +260,9 @@ export class Unit extends Phaser.GameObjects.Container {
         this.setInteraction();
         this.setAnimation();
         this.inventory.update();
+
+        this.title.setText(this.name);
+        this.healthBar.setHealth(this.health);
     }
 }
 
@@ -235,6 +277,8 @@ export namespace Unit {
             w: number;
             h: number;
         };
+
+        health: number;
     }
 
     export enum Action {

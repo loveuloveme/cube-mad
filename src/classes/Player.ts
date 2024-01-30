@@ -29,6 +29,8 @@ export class Player extends Unit {
         scene.input.on('pointerdown', () => {
             this.setAction(Unit.Action.MOVE_LEFT);
         });
+
+        this.title.setVisible(false);
     }
 
     private setMarker(): void {

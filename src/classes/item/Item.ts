@@ -5,6 +5,8 @@ import Block from './Block';
 import Single from './Single';
 import Tool from './Tool';
 import Unit from '../Unit';
+import Weapon from './Weapon';
+import Empty from './Empty';
 
 export class Item {
     public stack?: Stack;
@@ -36,8 +38,8 @@ export class Item {
 }
 
 export namespace Item {
-    export type Type = Item | Tool | Block | Stack | Single;
-    export type RealType = Item | Tool | Block;
+    export type RealType = Item | Tool | Weapon | Empty;
+    export type Type = RealType | Stack | Single;
 
     export enum Mode {
         CREATE,

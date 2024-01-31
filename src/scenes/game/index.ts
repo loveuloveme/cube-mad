@@ -106,6 +106,7 @@ export class GameScene extends Scene {
 
         this.units.add(this.player);
         this.units.add(this.enemy);
+
         this.physics.add.collider(this.units, this.worldMap.layers.ground);
     }
 

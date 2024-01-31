@@ -4,10 +4,11 @@ import Tool from './item/Tool';
 import Block from './item/Block';
 import { GameScene } from '@/scenes';
 import Weapon from './item/Weapon';
+import { Empty } from './item';
 
 class HeroHand extends Phaser.GameObjects.Container {
     private wrapper!: Phaser.GameObjects.Container;
-    private item!: Phaser.GameObjects.Sprite;
+    public item!: Phaser.GameObjects.Sprite;
     private hand!: Phaser.GameObjects.Sprite;
 
     constructor(scene: GameScene) {
@@ -43,11 +44,12 @@ class HeroHand extends Phaser.GameObjects.Container {
         });
     }
 
-    public setItem(_item: Item.Type | null) {
+    public setItem(_item: Item.Type) {
         const isTool = _item instanceof Tool;
-        this.item.setVisible(!!_item);
+        const isEmpty = _item instanceof Empty;
 
-        if (!_item) return;
+        this.item.setVisible(!isEmpty);
+        if (isEmpty) return;
 
         this.item.setTexture(
             isTool || !(_item.getItem() instanceof Block) ? 'items' : 'blocks',
@@ -73,7 +75,7 @@ export class Hero extends Phaser.GameObjects.Container {
     public legs: Phaser.GameObjects.Sprite[];
     public hands: HeroHand[];
 
-    private item!: Item.Type | null;
+    private item: Item.Type = new Empty();
 
     constructor(scene: Phaser.Scene, x: number, y: number) {
         super(scene, x, y);
@@ -98,6 +100,9 @@ export class Hero extends Phaser.GameObjects.Container {
             return hand;
         });
 
+        scene.physics.world.enable(this.hands[2].item);
+        (this.hands[2].item.body as Phaser.Physics.Arcade.Body).moves = false;
+
         this.head = new Phaser.GameObjects.Sprite(
             this.scene,
             0,
@@ -121,7 +126,7 @@ export class Hero extends Phaser.GameObjects.Container {
         }
     }
 
-    public setItem(item: Item.Type | null): void {
+    public setItem(item: Item.Type): void {
         this.item = item;
     }
 
@@ -177,12 +182,13 @@ export class Hero extends Phaser.GameObjects.Container {
     }
 
     public update(time: number, delta: number): void {
-        [null, this.item, this.item].forEach((item, i) => this.hands[i].setItem(item));
+        [new Empty(), this.item, this.item].forEach((item, i) => this.hands[i].setItem(item));
 
         const isInAction = this.hands[2].rotation !== 0;
 
         this.hands[1].setVisible(isInAction ? false : true);
         this.hands[2].setVisible(isInAction ? true : false);
+        this.hands[2].item.setActive(isInAction ? true : false);
     }
 }
 

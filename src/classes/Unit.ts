@@ -7,7 +7,7 @@ import { GameScene } from '@/scenes';
 import Destroy from './Destroy';
 import { blocks } from '@/instances';
 import HealthBar from './HealthBar';
-import { Item } from './item';
+import { Item, Weapon } from './item';
 
 export class Unit extends Phaser.GameObjects.Container {
     protected config: Unit.Config = {
@@ -24,7 +24,7 @@ export class Unit extends Phaser.GameObjects.Container {
 
     protected title: Phaser.GameObjects.Text;
     protected healthBar: HealthBar;
-    protected hero: Hero;
+    public hero: Hero;
     protected smoothedControls: SmoothedHorionztalControl;
     protected animator: HeroAnimator;
 
@@ -36,8 +36,6 @@ export class Unit extends Phaser.GameObjects.Container {
     body!: Phaser.Physics.Arcade.Body;
 
     public iPos: Phaser.Math.Vector2 | null = null;
-    public iRadius = 150;
-
     public name = '';
 
     private health: number;
@@ -80,6 +78,24 @@ export class Unit extends Phaser.GameObjects.Container {
         this.add(this.healthBar);
 
         this.smoothedControls = new SmoothedHorionztalControl(0.001);
+        this.body.setDragX(1500);
+
+        scene.physics.add.overlap(
+            this.hero.hands[2].item,
+            scene.units,
+            (obj, target) => {
+                if (
+                    (obj as Phaser.GameObjects.GameObject).active &&
+                    target !== this &&
+                    target instanceof Unit &&
+                    this.inventory.getActive().getItem() instanceof Weapon
+                ) {
+                    target.handleDamage(1, Math.sign(target.x - this.x));
+                }
+            },
+            undefined,
+            this,
+        );
     }
 
     private setMovement(time: number, delta: number) {
@@ -123,7 +139,7 @@ export class Unit extends Phaser.GameObjects.Container {
 
             body.setVelocityX(newVelocityX);
         } else {
-            body.setVelocityX(0);
+            // body.setVelocityX(0);
             this.smoothedControls.reset();
         }
 
@@ -149,7 +165,8 @@ export class Unit extends Phaser.GameObjects.Container {
                 this.hero.setActiveHandAngle(angle - Math.PI / 2);
             }
 
-            if (Math.abs(marker.x + 16 - this.x) > 32) {
+            // _)_
+            if (Math.abs(marker.x + 16 - this.x) > 0) {
                 this.hero.scaleX = Math.abs(this.hero.scaleX) * (marker.x + 16 > this.x ? 1 : -1);
             }
         }
@@ -210,9 +227,15 @@ export class Unit extends Phaser.GameObjects.Container {
         }
 
         if (y) {
-            const isInRadius = Phaser.Math.Distance.Between(this.x, this.y, x, y) <= this.iRadius;
-            this.iPos = isInRadius ? new Phaser.Math.Vector2(x, y) : null;
+            this.iPos = this.isInRadius(x, y) ? new Phaser.Math.Vector2(x, y) : null;
         }
+    }
+
+    public isInRadius(x: number, y: number): boolean {
+        return (
+            Phaser.Math.Distance.Between(this.x, this.y, x, y) <=
+            this.inventory.getActive().getItem().range
+        );
     }
 
     public setDestroy(): void {
@@ -233,7 +256,22 @@ export class Unit extends Phaser.GameObjects.Container {
         }
     }
 
-    handleDamage(damage: number) {
+    lastDamage = 0;
+    time = 0;
+
+    handleDamage(damage: number, dir: number) {
+        if (this.time - this.lastDamage < 1000) {
+            return;
+        }
+
+        this.health -= damage;
+
+        if (this.health < 0) {
+            this.health = 0;
+        }
+
+        this.lastDamage = this.time;
+        this.body.setVelocityX(500 * dir);
         // if (this._health <= 0) {
         //     return;
         // }
@@ -259,6 +297,7 @@ export class Unit extends Phaser.GameObjects.Container {
     }
 
     update(time: number, delta: number): void {
+        this.time = time;
         this.hero.update(time, delta);
 
         this.inventory.getActive()?.getItem().onInteract(this, time, delta);

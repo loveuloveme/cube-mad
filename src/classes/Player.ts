@@ -8,6 +8,7 @@ import Range from './Range';
 import Item from './item/Item';
 import isInRange from '@/helpers/is-in-range';
 import Unit from './Unit';
+import { Empty } from './item';
 
 export class Player extends Unit {
     private cursors: Phaser.Types.Input.Keyboard.CursorKeys;
@@ -21,8 +22,8 @@ export class Player extends Unit {
 
         scene.add.existing(this);
 
-        this.range = new Range(this.scene, this.iRadius);
-        this.add(this.range.children.getArray());
+        this.range = new Range(this.scene, 0);
+        this.add(this.range);
 
         this.cursors = scene.input.keyboard!.createCursorKeys();
 
@@ -31,6 +32,7 @@ export class Player extends Unit {
         });
 
         this.title.setVisible(false);
+        this.healthBar.setVisible(false);
     }
 
     private setMarker(): void {
@@ -72,7 +74,7 @@ export class Player extends Unit {
             ),
         );
 
-        if (this.inventory.getActive() === null) {
+        if (this.inventory.getActive() instanceof Empty) {
             marker.hide();
             return;
         }
@@ -95,7 +97,7 @@ export class Player extends Unit {
             return true;
         })();
 
-        const inRange = Phaser.Math.Distance.Between(this.x, this.y, x, y) <= this.iRadius;
+        const inRange = this.isInRadius(x, y);
 
         const markerX = scene.worldMap.tilemap.tileToWorldX(pointerTileX)!;
         const markerY = scene.worldMap.tilemap.tileToWorldY(pointerTileY)!;
@@ -145,6 +147,7 @@ export class Player extends Unit {
             this.setInteractPos(null);
         }
 
+        this.range.setRange(this.inventory.getActive().getItem().range);
         this.range.setVisible(this.scene.input.activePointer.isDown);
 
         super.update(time, delta);

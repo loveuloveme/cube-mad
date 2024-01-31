@@ -1,5 +1,5 @@
 import { Scene } from 'phaser';
-import { Block, Item, Stack } from '@/classes/item';
+import { Block, Empty, Item, Stack } from '@/classes/item';
 
 export class Slot extends Phaser.GameObjects.Container {
     public item!: Item.Type;
@@ -29,7 +29,7 @@ export class Slot extends Phaser.GameObjects.Container {
 
         this.size = { w, h };
 
-        this.item = null;
+        this.item = new Empty();
         // this.setSize(this.size.w, this.size.h);
 
         const hover = scene.add
@@ -110,7 +110,7 @@ export class Slot extends Phaser.GameObjects.Container {
         });
 
         this.container.on('pointerup', () => {
-            if (this.item === null) {
+            if (this.item instanceof Empty) {
                 this.emit('click');
             }
         });
@@ -160,10 +160,12 @@ export class Slot extends Phaser.GameObjects.Container {
     }
 
     public update(): void {
-        this.container.input!.draggable = this.item !== null;
-        this.itemSprite.visible = this.item !== null;
+        const isEmpty = this.item instanceof Empty;
 
-        if (this.item === null) {
+        this.container.input!.draggable = !isEmpty;
+        this.itemSprite.visible = !isEmpty;
+
+        if (isEmpty) {
             this.stackText.setVisible(false);
             return;
         }

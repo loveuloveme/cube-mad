@@ -5,26 +5,29 @@ import Block from './item/Block';
 import Stack from './item/Stack';
 import Single from './item/Single';
 import EventEmitter from 'events';
-import { blocks, items } from '@/instances';
-import IronPickaxe from './objects/items/IronPickaxe';
+import { items } from '@/instances';
 import Dirt from './objects/blocks/Dirt';
+import { Empty } from './item';
 
 export default class Inventory extends EventEmitter {
-    private inv: Item.Type[] | null[];
+    private inv: Item.Type[];
     private select = 0;
 
     constructor(size: number, public stashSize: number) {
         super();
 
-        this.inv = new Proxy(new Array(size).fill(null), {
-            set: (target, prop, val) => {
-                target[prop] = val;
+        this.inv = new Proxy(
+            new Array(size).fill(0).map((_) => new Empty()),
+            {
+                set: (target, prop, val) => {
+                    target[prop] = val;
 
-                this.emit('update');
+                    this.emit('update');
 
-                return true;
+                    return true;
+                },
             },
-        });
+        );
 
         this.inv[0] = new Single(items.getById(0));
         this.inv[1] = new Single(items.getById(1)); // CLONE OR CHANGE STACK LOGIC
@@ -64,7 +67,7 @@ export default class Inventory extends EventEmitter {
     }
 
     private putForEmpty(item: Item.Type) {
-        const i = this.getItems().findIndex((item) => item === null);
+        const i = this.getItems().findIndex((item) => item instanceof Empty);
         if (i == -1) return false;
 
         this.inv[i] = item;
@@ -80,7 +83,7 @@ export default class Inventory extends EventEmitter {
         if (item instanceof Stack) {
             const req = item.getItem();
 
-            for (const invItem of this.getItems().filter(Boolean)) {
+            for (const invItem of this.getItems().filter((item) => !(item instanceof Empty))) {
                 if (!(invItem instanceof Stack)) continue;
 
                 const target = invItem.getItem();
@@ -96,7 +99,7 @@ export default class Inventory extends EventEmitter {
         }
 
         if (item instanceof Block) {
-            for (const invItem of this.getItems().filter(Boolean)) {
+            for (const invItem of this.getItems().filter((item) => !(item instanceof Empty))) {
                 if (!(invItem instanceof Stack)) continue;
 
                 const target = invItem.getItem();
@@ -120,7 +123,7 @@ export default class Inventory extends EventEmitter {
         this.inv.forEach((item, i) => {
             if (item instanceof Stack) {
                 if (item.getCount() === 0) {
-                    this.inv[i] = null;
+                    this.inv[i] = new Empty();
                 }
             }
         });

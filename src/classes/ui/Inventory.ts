@@ -2,8 +2,7 @@ import { Scene } from 'phaser';
 import { SlotContainer } from './SlotContainer';
 import { Slot } from './Slot';
 import PlayerInventory from '../Inventory';
-import Item from '../item/Item';
-import { GameScene, UIScene } from '@/scenes';
+import { UIScene } from '@/scenes';
 
 const scale = 5;
 
@@ -38,19 +37,6 @@ export class Inventory extends Phaser.GameObjects.Container {
             slot.on('click', () => {
                 this.inventory.setSelect(i);
             });
-
-            // slot.container.on('pointerup', () => {
-
-            // });
-
-            // slot.container.on('dragend', (pointer, object) => {
-            //     if (
-            //         pointer.x == object.input.dragStartXGlobal &&
-            //         pointer.y == object.input.dragStartYGlobal
-            //     ) {
-            //         alert('Object clicked');
-            //     }
-            // });
         });
 
         this.slotContainer.on('update', (update: { to: Slot; from: Slot }) => {
@@ -63,8 +49,6 @@ export class Inventory extends Phaser.GameObjects.Container {
         });
 
         this.add([this.stash, this.marker, this.slotContainer]);
-
-        // this.setScale(5);
     }
 
     update() {
@@ -75,15 +59,11 @@ export class Inventory extends Phaser.GameObjects.Container {
             canvas.height - this.stash.displayHeight - 10,
         );
 
-        // this.slotContainer.update();
-
         const items = this.inventory.getItems();
         this.slotContainer.get('inventory').forEach((slot: Slot, i) => {
             slot.setItem(items[i]);
             slot.update();
         });
-
-        // this.slotContainer.update();
 
         this.marker.setPosition(
             -1 * scale + (16 + 4) * scale * this.inventory.getSelect(),

@@ -3,6 +3,7 @@ import Item from './item/Item';
 import Tool from './item/Tool';
 import Block from './item/Block';
 import { GameScene } from '@/scenes';
+import Weapon from './item/Weapon';
 
 class HeroHand extends Phaser.GameObjects.Container {
     private wrapper!: Phaser.GameObjects.Container;
@@ -53,13 +54,13 @@ class HeroHand extends Phaser.GameObjects.Container {
             _item.getItem().texture,
         );
 
-        const offsetX = isTool ? 2 : -1;
-        const offsetY = -this.item.displayHeight / 2 + (isTool ? 7 : 3);
+        const offsetX = (isTool ? 5 : -1) + (_item instanceof Weapon ? 2 : 0);
+        const offsetY = -this.item.displayHeight / 2 + (isTool ? 8 : 3);
 
         this.item.setPosition(offsetX, this.hand.displayHeight + offsetY);
 
         if (_item.getItem() instanceof Tool) {
-            this.item.setDisplaySize(16, 16);
+            this.item.setDisplaySize(20, 20);
         } else {
             this.item.setDisplaySize(6, 6);
         }
@@ -139,6 +140,38 @@ export class Hero extends Phaser.GameObjects.Container {
                 rotation: this.handAngle,
                 duration: 200,
                 repeat: 0,
+            });
+        }
+    }
+
+    attackAnim: Phaser.Tweens.TweenChain | null = null;
+
+    public attack() {
+        const hand = this.hands[2];
+
+        if (!this.attackAnim || this.attackAnim.isFinished() || this.attackAnim.isDestroyed()) {
+            this.scene.tweens.killTweensOf([hand]);
+            hand.rotation = -2.5;
+
+            this.attackAnim = this.scene.tweens.chain({
+                targets: [hand],
+                tweens: [
+                    {
+                        rotation: -2.5,
+                        duration: 100,
+                        repeat: 0,
+                    },
+                    {
+                        rotation: 0,
+                        duration: 200,
+                        repeat: 0,
+                    },
+                    {
+                        rotation: 0,
+                        duration: 200,
+                        repeat: 0,
+                    },
+                ],
             });
         }
     }

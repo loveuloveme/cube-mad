@@ -29,6 +29,7 @@ export default class Inventory extends EventEmitter {
         this.inv[0] = new Single(items.getById(0));
         this.inv[1] = new Single(items.getById(1)); // CLONE OR CHANGE STACK LOGIC
         this.inv[2] = new Stack(new Dirt()); //blocks.getById(1)
+        this.inv[2] = new Single(items.getById(2));
         // this.inv[1] = new Stack(blocks[0]);
         // this.inv[3] = items[2];
         // this.inv[4] = blocks[1];

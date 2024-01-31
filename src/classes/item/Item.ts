@@ -8,6 +8,7 @@ import Unit from '../Unit';
 
 export class Item {
     public stack?: Stack;
+    public range = 150;
 
     constructor(
         public id: number,

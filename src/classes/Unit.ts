@@ -7,6 +7,7 @@ import { GameScene } from '@/scenes';
 import Destroy from './Destroy';
 import { blocks } from '@/instances';
 import HealthBar from './HealthBar';
+import { Item } from './item';
 
 export class Unit extends Phaser.GameObjects.Container {
     protected config: Unit.Config = {
@@ -144,7 +145,10 @@ export class Unit extends Phaser.GameObjects.Container {
                 angle = Math.abs(Math.abs(angle) - Math.PI) * Math.sign(angle);
             }
 
-            this.hero.setActiveHandAngle(angle - Math.PI / 2);
+            if (this.inventory.getActive()?.getItem().mode !== Item.Mode.IGNORE) {
+                this.hero.setActiveHandAngle(angle - Math.PI / 2);
+            }
+
             if (Math.abs(marker.x + 16 - this.x) > 32) {
                 this.hero.scaleX = Math.abs(this.hero.scaleX) * (marker.x + 16 > this.x ? 1 : -1);
             }
@@ -248,6 +252,10 @@ export class Unit extends Phaser.GameObjects.Container {
         //     this.healthState = HealthState.DAMAGE;
         //     this.damageTime = 0;
         // }
+    }
+
+    public attack() {
+        this.hero.attack();
     }
 
     update(time: number, delta: number): void {

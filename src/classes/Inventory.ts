@@ -44,6 +44,10 @@ export default class Inventory extends EventEmitter {
         return this.inv.slice(0, this.stashSize);
     }
 
+    public setItem(idx, item) {
+        this.inv[idx] = item;
+    }
+
     public getItems(): typeof this.inv {
         return this.inv;
     }

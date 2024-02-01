@@ -7,7 +7,7 @@ import Marker from '@/classes/Marker';
 import DropContainer from '@/classes/DropContainer';
 import { Single, Stack } from '@/classes/item';
 import { blocks, items } from '@/instances';
-import Unit from '@/classes/Unit';
+import Enemy from '@/classes/Enemy';
 
 export class GameScene extends Scene {
     public worldMap!: WorldMap;
@@ -101,12 +101,15 @@ export class GameScene extends Scene {
         // this.worldMap.layers.ground.setPipeline('Light2D');
         // this.worldMap.layers.background.setPipeline('Light2D');
 
-        this.enemy = new Unit(this);
+        this.enemy = new Enemy(this);
         this.enemy.name = 'Зомби';
+
+        this.enemy.target = this.player;
 
         this.units.add(this.player);
         this.units.add(this.enemy);
 
+        // this.physics.add.collider(this.units, this.units);
         this.physics.add.collider(this.units, this.worldMap.layers.ground);
     }
 

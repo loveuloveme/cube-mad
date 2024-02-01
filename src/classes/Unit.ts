@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-namespace */
 import Hero from '@/classes/Hero';
 import HeroAnimator from '@/classes/HeroAnimator';
@@ -19,7 +20,7 @@ export class Unit extends Phaser.GameObjects.Container {
             w: 15,
             h: 64,
         },
-        health: 5,
+        health: 2,
     };
 
     protected title: Phaser.GameObjects.Text;
@@ -40,10 +41,17 @@ export class Unit extends Phaser.GameObjects.Container {
 
     private health: number;
 
+    private flash;
+
     constructor(scene: GameScene, config?: Unit.Config) {
         super(scene, 700, 0);
         this.config = config ?? this.config;
         this.setSize(this.config.collider.w, this.config.collider.h);
+
+        this.flash = this.scene.plugins.get('rexFlash')!.add(this, {
+            duration: 500,
+            repeat: 10,
+        })!;
 
         scene.physics.world.enable(this);
         this.body.setCollideWorldBounds(true);
@@ -96,6 +104,10 @@ export class Unit extends Phaser.GameObjects.Container {
             undefined,
             this,
         );
+    }
+
+    public isAlive(): boolean {
+        return this.health > 0;
     }
 
     private setMovement(time: number, delta: number) {
@@ -152,6 +164,8 @@ export class Unit extends Phaser.GameObjects.Container {
     }
 
     public setInteraction(): void {
+        if (!this.isAlive()) return;
+
         const marker = this.iPos;
 
         if (this.isInteraction() && marker) {
@@ -190,13 +204,17 @@ export class Unit extends Phaser.GameObjects.Container {
         if (this.isInteraction() && !marker.isHidden()) {
             this.animator.setInteract();
         }
+
+        if (!this.isAlive()) {
+            this.animator.setAnimation('run');
+        }
     }
 
     public useAnimation(): void {
         this.animator.createActivateAnimation();
     }
 
-    actions: Unit.Action[] = [Unit.Action.INTERACTION];
+    actions: Unit.Action[] = [];
 
     public setAction(action: Unit.Action): void {
         if (this.actions.findIndex((v) => v === action) === -1) {
@@ -259,40 +277,44 @@ export class Unit extends Phaser.GameObjects.Container {
     lastDamage = 0;
     time = 0;
 
-    handleDamage(damage: number, dir: number) {
+    public handleDamage(damage: number, dir: number): void {
         if (this.time - this.lastDamage < 1000) {
             return;
         }
 
         this.health -= damage;
 
-        if (this.health < 0) {
+        if (this.health <= 0) {
             this.health = 0;
+
+            this.body.moves = false;
+
+            this.scene.tweens.chain({
+                targets: [this],
+                tweens: [
+                    {
+                        y: '-=10',
+                        opacity: 0,
+                        duration: 200,
+                    },
+                    {
+                        y: '+=500',
+                        duration: 400,
+                        onComplete: () => {
+                            // this.destroy();
+                        },
+                    },
+                ],
+            });
         }
 
         this.lastDamage = this.time;
         this.body.setVelocityX(500 * dir);
-        // if (this._health <= 0) {
-        //     return;
-        // }
-        // if (this.healthState === HealthState.DAMAGE) {
-        //     return;
-        // }
-        // --this._health;
-        // if (this._health <= 0) {
-        //     // TODO: die
-        //     this.healthState = HealthState.DEAD;
-        //     this.anims.play('faune-faint');
-        //     this.setVelocity(0, 0);
-        // } else {
-        //     this.setVelocity(dir.x, dir.y);
-        //     this.setTint(0xff0000);
-        //     this.healthState = HealthState.DAMAGE;
-        //     this.damageTime = 0;
-        // }
+
+        // this.flash.flash();
     }
 
-    public attack() {
+    public attack(): void {
         this.hero.attack();
     }
 

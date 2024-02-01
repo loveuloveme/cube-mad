@@ -1,7 +1,7 @@
 import { GameObjects, Scene, Tilemaps } from 'phaser';
 
 import { Player } from '../../classes/player';
-import { Enemy } from '../../classes/enemy';
+import { Enemy } from '../../classes/1enemy';
 import { gameObjectsToObjectPoints } from '../../helpers/gameobject-to-object-point';
 
 import { EVENTS_NAME } from '../../consts';

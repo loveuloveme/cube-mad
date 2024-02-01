@@ -11,7 +11,8 @@
   "dependencies": {
     "phaser": "^3.24.1",
     "phaser-raycaster": "^0.10.10",
-    "phaser-ui-tools": "^2.0.0-beta"
+    "phaser-ui-tools": "^2.0.0-beta",
+    "phaser3-rex-plugins": "^1.60.10"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

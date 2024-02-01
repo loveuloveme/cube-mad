@@ -1,6 +1,7 @@
 import { Game, Scale, Types, WEBGL } from 'phaser';
 import { GameScene, LoadingScene, UIScene } from './scenes';
 import PhaserRaycaster from 'phaser-raycaster';
+import FlashPlugin from 'phaser3-rex-plugins/plugins/flash-plugin.js';
 
 type GameConfigExtended = Types.Core.GameConfig & {
     winScore: number;
@@ -44,6 +45,13 @@ export const gameConfig: GameConfigExtended = {
                 key: 'PhaserRaycaster',
                 plugin: PhaserRaycaster,
                 mapping: 'raycasterPlugin',
+            },
+        ],
+        global: [
+            {
+                key: 'rexFlash',
+                plugin: FlashPlugin,
+                start: true,
             },
         ],
     },

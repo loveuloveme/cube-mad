@@ -88,28 +88,16 @@ export class GameScene extends Scene {
             new Stack(blocks.getById(180)),
         );
 
-        // this.lights.enable();
-        // //set ambient colour whole scene. This is set to quite dark for contrast with lights
-        // this.lights.setAmbientColor(0x000000);
+        const enemy = new Enemy(this);
+        enemy.name = 'Зомби';
 
-        // //light at entrance to level
-        // this.l = this.lights
-        //     .addLight(this.player.x, this.player.y, 150)
-        //     .setColor(0xffffff)
-        //     .setIntensity(0.5);
-
-        // this.worldMap.layers.ground.setPipeline('Light2D');
-        // this.worldMap.layers.background.setPipeline('Light2D');
-
-        this.enemy = new Enemy(this);
-        this.enemy.name = 'Зомби';
-
-        this.enemy.target = this.player;
+        enemy.target = this.player;
+        enemy.x -= 150;
 
         this.units.add(this.player);
-        this.units.add(this.enemy);
+        this.units.add(enemy);
 
-        // this.physics.add.collider(this.units, this.units);
+        this.physics.add.collider(this.units, this.units);
         this.physics.add.collider(this.units, this.worldMap.layers.ground);
     }
 
@@ -122,7 +110,10 @@ export class GameScene extends Scene {
         this.worldMap.update();
         this.marker.update();
         this.dropContainer.update();
-        this.enemy.update(time, delta);
+
+        this.units.getChildren().forEach((unit) => {
+            unit.update(time, delta);
+        }, this);
 
         // this.l.setPosition(this.player.x, this.player.y);
     }
